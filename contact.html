@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Help</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
+    <nav class="navbar">
         <h1>Contact Help</h1>
+    </nav>
+    <div class="container">
+        <div id="map"></div>
         <div class="hospital-list">
             <h2>Nearby Hospitals</h2>
             <ul id="hospitalList">
