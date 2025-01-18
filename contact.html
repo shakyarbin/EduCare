@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Help</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Help</h1>
+        <div class="hospital-list">
+            <h2>Nearby Hospitals</h2>
+            <ul id="hospitalList">
+                <!-- Hospitals will be populated here by JavaScript -->
+            </ul>
+        </div>
+        <div class="family-list">
+            <h2>Family Contacts</h2>
+            <ul>
+                <li>
+                    <span>Jane Doe</span>
+                    <button onclick="callNumber('+1234567890')">Call</button>
+                    <button onclick="sendSMS('+1234567890')">SMS</button>
+                </li>
+                <!-- Add more family members as needed -->
+            </ul>
+        </div>
+    </div>
+</body>
+</html> 
