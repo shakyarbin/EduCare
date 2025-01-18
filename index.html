@@ -5,23 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emergency Info</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <nav class="navbar">
-        <h1>Emergency Info</h1>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                Emergency Info
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active"><i class="fas fa-user-circle"></i> Profile</a>
+                <a href="contact.html"><i class="fas fa-phone-alt"></i> Emergency Contact</a>
+            </div>
+        </div>
     </nav>
     <div class="container">
-        <div class="info">
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Address:</strong> 123 Main St, Anytown, USA</p>
-            <p><strong>Phone No:</strong> +1 234 567 890</p>
-            <p><strong>DOB:</strong> 01/01/1980</p>
-            <p><strong>Blood Group:</strong> O+</p>
-            <p><strong>Existing Medical Conditions:</strong> Diabetes</p>
-            <p><strong>Allergies:</strong> Penicillin</p>
-            <p><strong>Medications:</strong> Metformin</p>
+        <div class="info-card">
+            <div class="profile-section">
+                <div class="profile-image">
+                    <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Patient Photo">
+                </div>
+                <div class="profile-header">
+                    <h2>John Robert Doe</h2>
+                    <span class="profile-subtitle">ID: #MED123456</span>
+                </div>
+            </div>
+            <div class="info-content">
+                <div class="info-group">
+                    <h3><i class="fas fa-user-tag"></i> Personal Information</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Anam Nagar, Bagmati-5, Kathmandu</p>
+                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +977 9658751244</p>
+                    <p><i class="fas fa-calendar"></i> <strong>DOB:</strong> 01/01/0 (43 years)</p>
+                    <p><i class="fas fa-venus-mars"></i> <strong>Gender:</strong> Male</p>
+                    <p><i class="fas fa-id-card"></i> <strong>SSN:</strong> 4422-12-4567</p>
+                </div>
+
+                <div class="info-group">
+                    <h3><i class="fas fa-notes-medical"></i> Medical Information</h3>
+                    <p><i class="fas fa-tint"></i> <strong>Blood Group:</strong> O+</p>
+                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 75 kg</p>
+                    <p><i class="fas fa-ruler-vertical"></i> <strong>Height:</strong> 175 cm</p>
+                    <p><i class="fas fa-notes-medical"></i> <strong>Medical Conditions:</strong> Type 2 Diabetes, Hypertension</p>
+                    <p><i class="fas fa-allergies"></i> <strong>Allergies:</strong> Penicillin, Peanuts</p>
+                    <p><i class="fas fa-pills"></i> <strong>Medications:</strong> Metformin (500mg), Lisinopril (10mg)</p>
+                </div>
+
+                <div class="info-group">
+                    <h3><i class="fas fa-file-medical"></i> Insurance Information</h3>
+                    <p><i class="fas fa-hospital-user"></i> <strong>Provider:</strong> Rastriya Jiban Beema Company Limited</p>
+                    <p><i class="fas fa-id-card-alt"></i> <strong>Policy Number:</strong> HCP987654321</p>
+                </div>
+            </div>
         </div>
-        <button onclick="window.location.href='contact.html'">Contact Help</button>
+        <button class="emergency-btn" onclick="window.location.href='contact.html'">
+            <i class="fas fa-ambulance"></i> Emergency Contact
+        </button>
     </div>
 </body>
 </html> 
