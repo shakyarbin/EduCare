@@ -467,3 +467,96 @@ body {
         padding: 0.4rem 0.8rem;
     }
 } 
+
+.hospital-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.direction-btn {
+    background-color: #FF9800;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.3s ease;
+}
+
+.direction-btn:hover {
+    opacity: 0.9;
+}
+
+.hospital-phone {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.facility-type {
+    font-size: 0.8rem;
+    color: #666;
+    background-color: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 12px;
+    display: inline-block;
+    margin: 2px 0;
+}
+
+/* Custom Marker Styles */
+.custom-marker {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.custom-marker:hover {
+    transform: scale(1.2);
+}
+
+/* Popup Styles */
+.maplibregl-popup {
+    z-index: 1000;
+}
+
+.maplibregl-popup-content {
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.maplibregl-popup-content h3 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.maplibregl-popup-content p {
+    margin: 3px 0;
+    font-size: 12px;
+} 
+
+.no-results {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+}
+
+.error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-message i {
+    font-size: 2rem;
+    color: #f44336;
+}
+
+.error-details {
+    font-size: 0.8rem;
+    color: #999;
+} 
