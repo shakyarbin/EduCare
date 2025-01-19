@@ -107,4 +107,30 @@ function handleLocationError(browserHasGeolocation) {
     alert(browserHasGeolocation ?
         'Error: The Geolocation service failed.' :
         'Error: Your browser doesn\'t support geolocation.');
+}
+
+function callWithSpeech(phoneNumber, service) {
+    if ('speechSynthesis' in window) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const message = `Emergency! This is an automated emergency call. I need ${service} assistance. My current location is approximately latitude ${position.coords.latitude.toFixed(6)} and longitude ${position.coords.longitude.toFixed(6)}. Please send help immediately.`;
+            
+            const speech = new SpeechSynthesisUtterance(message);
+            speech.rate = 0.9; // Slightly slower rate for clarity
+            speech.pitch = 1;
+            speech.volume = 1;
+            
+            speech.onend = () => {
+                // After speech ends, initiate the call
+                window.location.href = `tel:${phoneNumber}`;
+            };
+            
+            window.speechSynthesis.speak(speech);
+        }, () => {
+            // If location access is denied, still make the call
+            window.location.href = `tel:${phoneNumber}`;
+        });
+    } else {
+        // If speech synthesis is not supported, just make the call
+        window.location.href = `tel:${phoneNumber}`;
+    }
 } 
