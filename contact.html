@@ -6,9 +6,9 @@
     <title>Contact Help</title>
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://cdn.maptiler.com/maplibre-gl-js/v2.4.0/maplibre-gl.css" rel="stylesheet" />
-    <script src="https://cdn.maptiler.com/maplibre-gl-js/v2.4.0/maplibre-gl.js"></script>
     <script src="./script.js" defer></script>
+    <script src="https://cdn.maptiler.com/maplibre-gl-js/v2.4.0/maplibre-gl.js"></script>
+    <link href="https://cdn.maptiler.com/maplibre-gl-js/v2.4.0/maplibre-gl.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar">
@@ -25,19 +25,12 @@
         </div>
     </nav>
     <div class="container">
-        <div class="map-card">
-            <div class="card-header">
-                <i class="fas fa-map-marked-alt"></i>
-                <h2>Current Location</h2>
-            </div>
-            <div id="map"></div>
-        </div>
-        
         <div class="contact-card">
             <div class="card-header">
                 <i class="fas fa-hospital"></i>
                 <h2>Nearby Hospitals</h2>
             </div>
+            <div id="map"></div>
             <ul id="hospitalList" class="contact-list">
                 <!-- Hospitals will be populated here by JavaScript -->
             </ul>
@@ -78,7 +71,7 @@
                         <button onclick="callNumber('+977 1225466348')" class="call-btn">
                             <i class="fas fa-phone"></i> Call
                         </button>
-                        <button onclick="sendSMS('++977 1225466348')" class="sms-btn">
+                        <button onclick="sendSMS('+977 1225466348')" class="sms-btn">
                             <i class="fas fa-sms"></i> SMS
                         </button>
                     </div>
@@ -92,10 +85,10 @@
                         </div>
                     </div>
                     <div class="contact-buttons">
-                        <button onclick="callNumber('++977 1225466348')" class="call-btn">
+                        <button onclick="callNumber('+977 1225466348')" class="call-btn">
                             <i class="fas fa-phone"></i> Call
                         </button>
-                        <button onclick="sendSMS('++977 1225466348')" class="sms-btn">
+                        <button onclick="sendSMS('+977 1225466348')" class="sms-btn">
                             <i class="fas fa-sms"></i> SMS
                         </button>
                     </div>
