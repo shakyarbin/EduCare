@@ -564,4 +564,298 @@ body {
 .error-details {
     font-size: 0.8rem;
     color: #999;
+}
+
+/* First Aid Page Styles */
+.search-container {
+    margin-bottom: 1rem;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.first-aid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.first-aid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.first-aid-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.first-aid-item i {
+    font-size: 2rem;
+    color: #FF0000;
+    margin-bottom: 0.5rem;
+}
+
+.first-aid-item span {
+    font-size: 0.9rem;
+    color: #333;
+    text-align: center;
+}
+
+.procedure-content {
+    padding: 1.5rem;
+}
+
+.procedure-details {
+    margin-bottom: 2rem;
+}
+
+.guidance-content {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #2196F3;
+}
+
+.guidance-content p {
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+}
+
+.guidance-disclaimer {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background-color: #fff3cd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #856404;
+}
+
+.guidance-disclaimer i {
+    margin-right: 0.5rem;
+    color: #856404;
+}
+
+.specific-guidance {
+    margin-top: 2rem;
+}
+
+.specific-guidance h3 {
+    color: #2196F3;
+    margin-bottom: 1rem;
+}
+
+.procedure-steps {
+    list-style-type: none;
+    padding: 0;
+}
+
+.procedure-steps li {
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.procedure-steps li:before {
+    content: "•";
+    color: #FF0000;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+}
+
+.checklist-container {
+    padding: 1rem;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.checklist-item input[type="checkbox"] {
+    margin-right: 0.8rem;
+}
+
+.checklist-item label {
+    color: #333;
+    cursor: pointer;
+}
+
+/* Emergency Message Card Styles */
+.emergency-message-card {
+    margin-top: 1rem;
+}
+
+.emergency-message-card .card-header {
+    background-color: #FF6B6B;
+    color: white;
+}
+
+.emergency-message-card .card-header i {
+    color: white;
+}
+
+.message-content {
+    padding: 1rem;
+}
+
+.message-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.8rem;
+    border-bottom: 1px solid #eaeaea;
+    background-color: #fff;
+}
+
+.message-item:last-child {
+    border-bottom: none;
+}
+
+.message-item i {
+    color: #FF6B6B;
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
+}
+
+.message-item p {
+    margin: 0;
+    color: #333;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Make the text unselectable */
+.message-item p {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* AI Help Section Styles */
+.custom-help-card {
+    margin-bottom: 1rem;
+}
+
+.custom-help-container {
+    padding: 1rem;
+}
+
+#situationInput {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.8rem;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    resize: vertical;
+}
+
+.ai-help-btn {
+    background-color: #2196F3;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.ai-help-btn:hover {
+    background-color: #1976D2;
+}
+
+.ai-response {
+    background-color: #f8f9fa;
+    border-left: 4px solid #2196F3;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+}
+
+.loading-indicator {
+    color: #666;
+    text-align: center;
+    padding: 1rem;
+}
+
+.loading-indicator i {
+    margin-right: 0.5rem;
+}
+
+.first-aid-container {
+    padding: 1rem;
+}
+
+.input-section {
+    margin-bottom: 2rem;
+}
+
+.input-section h3 {
+    margin: 1.5rem 0 1rem;
+    color: #333;
+}
+
+.first-aid-item {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.first-aid-item.active {
+    background-color: #e3f2fd;
+    border-color: #2196F3;
+    transform: translateY(-2px);
+}
+
+.guidance-btn {
+    width: 100%;
+    background-color: #2196F3;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.guidance-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.guidance-btn:not(:disabled):hover {
+    background-color: #1976D2;
+}
+
+.guidance-content {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eaeaea;
 } 

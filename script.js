@@ -112,10 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         const type = getFacilityType(facility.tags);
                         
                         // Calculate distance from user location
-                        const distance = calculateDistance(
+            const distance = calculateDistance(
                             position.coords.latitude, position.coords.longitude,
                             facility.lat, facility.lon
-                        ).toFixed(1);
+            ).toFixed(1);
 
                         // Create custom marker element
                         const markerEl = document.createElement('div');
@@ -141,29 +141,29 @@ document.addEventListener('DOMContentLoaded', () => {
                             element: markerEl,
                             anchor: 'center'
                         })
-                        .setLngLat(coordinates)
-                        .setPopup(new maplibregl.Popup().setHTML(`
-                            <h3>${name}</h3>
+                .setLngLat(coordinates)
+                .setPopup(new maplibregl.Popup().setHTML(`
+                    <h3>${name}</h3>
                             <p class="facility-type">${type}</p>
-                            <p>${distance} km away</p>
+                    <p>${distance} km away</p>
                             <button onclick="callNumber('${getHospitalPhoneNumber(name)}')" class="call-btn">
                                 <i class="fas fa-phone"></i> Call
                             </button>
-                        `))
-                        .addTo(map);
+                `))
+                .addTo(map);
 
                         // Add to facility list
                         addFacilityToList(name, coordinates, distance, type);
-                    });
+        });
 
-                    // Fit map to show all markers
+        // Fit map to show all markers
                     if (medicalFacilities.length > 0) {
-                        const bounds = new maplibregl.LngLatBounds();
+        const bounds = new maplibregl.LngLatBounds();
                         medicalFacilities.forEach(facility => {
                             bounds.extend([facility.lon, facility.lat]);
-                        });
-                        bounds.extend(userLocation);
-                        map.fitBounds(bounds, { padding: 50 });
+        });
+        bounds.extend(userLocation);
+        map.fitBounds(bounds, { padding: 50 });
                     }
                 })
                 .catch(error => {
@@ -261,4 +261,261 @@ function getFacilityIcon(type) {
         case 'Pharmacy': return 'fa-prescription-bottle-medical';
         default: return 'fa-hospital';
     }
-} 
+}
+
+// Update the First Aid Procedures object to include all emergency types
+const firstAidProcedures = {
+    bleeding: {
+        title: "Bleeding",
+        steps: [
+            "Apply direct pressure to the wound using a clean cloth or sterile gauze",
+            "Keep pressure applied for at least 15 minutes",
+            "If blood soaks through, add more gauze or cloth without removing the first layer",
+            "Once bleeding stops, clean and dress the wound",
+            "Seek medical attention for severe bleeding"
+        ]
+    },
+    burns: {
+        title: "Burns",
+        steps: [
+            "Cool the burn under cool (not cold) running water for at least 10 minutes",
+            "Remove any jewelry or tight items from the burned area",
+            "Cover with a sterile gauze bandage",
+            "Don't apply ice, butter, or ointments",
+            "Seek medical attention for severe burns"
+        ]
+    },
+    choking: {
+        title: "Choking",
+        steps: [
+            "Encourage the person to cough",
+            "If they can't cough, speak, or breathe, stand behind them",
+            "Give 5 sharp blows between their shoulder blades",
+            "If unsuccessful, perform abdominal thrusts (Heimlich maneuver)",
+            "Call emergency services if the person becomes unconscious"
+        ]
+    },
+    fracture: {
+        title: "Fractures",
+        steps: [
+            "Keep the injured area still and supported",
+            "Apply ice wrapped in a cloth to reduce swelling",
+            "Check for circulation beyond the injury",
+            "Don't attempt to realign the bone",
+            "Seek immediate medical attention"
+        ]
+    },
+    heartAttack: {
+        title: "Heart Attack",
+        steps: [
+            "Call emergency services immediately",
+            "Help the person sit down and stay calm",
+            "Loosen any tight clothing",
+            "If prescribed, help them take their heart medication",
+            "Be prepared to perform CPR if needed"
+        ]
+    },
+    cpr: {
+        title: "CPR",
+        steps: [
+            "Check the scene is safe and check for response",
+            "Call emergency services",
+            "Check for breathing",
+            "Begin chest compressions: 30 compressions at 100-120 per minute",
+            "Give 2 rescue breaths",
+            "Continue cycles of 30 compressions and 2 breaths"
+        ]
+    },
+    allergic: {
+        title: "Allergic Reaction",
+        steps: [
+            "Identify and remove the trigger if possible",
+            "Check for severe symptoms (difficulty breathing, swelling)",
+            "Use epinephrine auto-injector if available and prescribed",
+            "Call emergency services for severe reactions",
+            "Keep the person calm and monitor their breathing"
+        ]
+    },
+    stroke: {
+        title: "Stroke",
+        steps: [
+            "Remember FAST: Face drooping, Arm weakness, Speech difficulty, Time to call emergency",
+            "Note the time symptoms started",
+            "Keep the person still and calm",
+            "Do not give them anything to eat or drink",
+            "Call emergency services immediately"
+        ]
+    },
+    seizure: {
+        title: "Seizure",
+        steps: [
+            "Clear the area of hazards",
+            "Protect the head with something soft",
+            "Time the seizure",
+            "Do not restrain the person or put anything in their mouth",
+            "Place them in recovery position after seizure stops"
+        ]
+    },
+    heatstroke: {
+        title: "Heat Stroke",
+        steps: [
+            "Move to a cool place",
+            "Remove excess clothing",
+            "Cool the body with water or wet cloths",
+            "Place ice packs at neck, armpits, and groin",
+            "Call emergency services immediately"
+        ]
+    },
+    poisoning: {
+        title: "Poisoning",
+        steps: [
+            "Call poison control center immediately",
+            "Do not induce vomiting unless instructed",
+            "Collect the poison container/sample if safe",
+            "Check breathing and consciousness",
+            "Follow poison control center's instructions"
+        ]
+    },
+    drowning: {
+        title: "Drowning",
+        steps: [
+            "Ensure scene safety",
+            "Remove from water if safe to do so",
+            "Check breathing and start CPR if needed",
+            "Call emergency services",
+            "Keep the person warm"
+        ]
+    }
+};
+
+let selectedProcedure = null;
+
+// Add click handlers for emergency items
+document.addEventListener('DOMContentLoaded', () => {
+    const firstAidItems = document.querySelectorAll('.first-aid-item');
+    const guidanceBtn = document.querySelector('.guidance-btn');
+
+    firstAidItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Remove active class from all items
+            firstAidItems.forEach(i => i.classList.remove('active'));
+            // Add active class to clicked item
+            item.classList.add('active');
+            // Store selected procedure
+            selectedProcedure = item.dataset.procedure;
+            // Enable guidance button
+            guidanceBtn.disabled = false;
+        });
+    });
+});
+
+async function getFirstAidGuidance() {
+    if (!selectedProcedure) {
+        alert('Please select an emergency type');
+        return;
+    }
+
+    const procedure = firstAidProcedures[selectedProcedure];
+    const situationInput = document.getElementById('situationInput').value.trim();
+    const guidanceContent = document.getElementById('guidanceContent');
+    
+    // Get user's medical information
+    const userInfo = {
+        name: "Rakesh Rana",
+        age: 43,
+        bloodGroup: "O+",
+        allergies: ["Penicillin", "Peanuts"],
+        conditions: ["Type 2 Diabetes", "Hypertension"],
+        medications: ["Metformin (500mg)", "Lisinopril (10mg)"]
+    };
+
+    // Show loading state
+    guidanceContent.innerHTML = `
+        <div class="loading-indicator">
+            <i class="fas fa-spinner fa-spin"></i> Getting personalized guidance...
+        </div>
+    `;
+    guidanceContent.style.display = 'block';
+
+    try {
+        let prompt = `You are a first aid expert. Given a patient with the following medical profile:
+- Age: ${userInfo.age}
+- Medical Conditions: ${userInfo.conditions.join(', ')}
+- Allergies: ${userInfo.allergies.join(', ')}
+- Current Medications: ${userInfo.medications.join(', ')}
+
+They are experiencing a ${procedure.title} emergency.`;
+
+        if (situationInput) {
+            prompt += `\n\nAdditional situation details: ${situationInput}`;
+        }
+
+        prompt += `\n\nProvide specific first aid guidance considering their medical conditions. Be concise but thorough. Focus on:
+1. Immediate actions needed
+2. What to avoid given their conditions
+3. When to call emergency services
+4. Special precautions due to their medical conditions`;
+
+        const response = await fetch('https://api.together.xyz/inference', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer c3dd1f5e4c5b08dd4c5d7fd554a65a2eca6a7abea6c2ba0f5d76b31c16140c02'
+            },
+            body: JSON.stringify({
+                model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+                prompt: prompt,
+                max_tokens: 512,
+                temperature: 0.7,
+                top_p: 0.7,
+                top_k: 50,
+                repetition_penalty: 1,
+                stop: ['Human:', 'Assistant:']
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.output && data.output.choices && data.output.choices[0]) {
+            const guidance = data.output.choices[0].text;
+            guidanceContent.innerHTML = `
+                <h3>${procedure.title} - First Aid Guidance</h3>
+                <div class="guidance-text">
+                    ${guidance.split('\n').map(line => `<p>${line}</p>`).join('')}
+                </div>
+                <div class="guidance-disclaimer">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <small>This is AI-generated guidance considering your medical conditions. In serious emergencies, always call emergency services immediately.</small>
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Error getting AI guidance:', error);
+        guidanceContent.innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Unable to get personalized guidance. Please call emergency services if needed.</p>
+            </div>
+        `;
+    }
+}
+
+// Search functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const firstAidItems = document.querySelectorAll('.first-aid-item');
+            
+            firstAidItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+}); 
