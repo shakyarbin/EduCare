@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Initialize map
             const map = new maplibregl.Map({
-                container: 'map',   
+                container: 'map',
                 style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=T2ydav4L9diNGz0rJvDh',
                 center: userLocation,
                 zoom: 14
@@ -598,19 +598,19 @@ async function callWithSpeech(phoneNumber, serviceType) {
         message += ` My exact location: ${locationLink}`;
 
         // Use speech synthesis to speak the message
-        const speech = new SpeechSynthesisUtterance(message);
+            const speech = new SpeechSynthesisUtterance(message);
         speech.rate = 0.9; // Slightly slower for clarity
-        speech.pitch = 1;
-        speech.volume = 1;
-
+            speech.pitch = 1;
+            speech.volume = 1;
+            
         // Speak the message
         window.speechSynthesis.speak(speech);
 
         // After starting speech, initiate the call
-        speech.onend = () => {
-            window.location.href = `tel:${phoneNumber}`;
-        };
-
+            speech.onend = () => {
+                window.location.href = `tel:${phoneNumber}`;
+            };
+            
     } catch (error) {
         console.error('Error in callWithSpeech:', error);
         // Fallback to regular call if there's an error
