@@ -1,3 +1,48 @@
+// Add this at the beginning of your script.js file
+const emergencyInfo = {
+    "Personal Information": {
+        "Name": "Rakesh Rana",
+        "Blood Group": "O+",
+        "Age": "43",
+        "Medical Conditions": ["Type 2 Diabetes", "Hypertension"],
+        "Allergies": ["Penicillin", "Peanuts"],
+        "Medications": ["Metformin (500mg)", "Lisinopril (10mg)"]
+    },
+    "Emergency Numbers": {
+        "Ambulance": "102",
+        "Fire Brigade": "101",
+        "Police": "100",
+        "Emergency Medical Services": "108",
+        "Disaster Management": "011-1070"
+    }
+};
+
+// Store emergency info in local storage
+localStorage.setItem('emergencyInfo', JSON.stringify(emergencyInfo));
+
+// Check online/offline status
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+
+function updateOnlineStatus() {
+    if (!navigator.onLine) {
+        // When offline, show emergency information
+        const storedInfo = JSON.parse(localStorage.getItem('emergencyInfo'));
+        if (storedInfo) {
+            displayEmergencyInfo(storedInfo);
+        }
+    }
+}
+
+function displayEmergencyInfo(info) {
+    // Add your code to display emergency information here
+    // This will depend on your website's HTML structure
+    console.log('Offline - Displaying Emergency Information:', info);
+}
+
+// Check status on page load
+document.addEventListener('DOMContentLoaded', updateOnlineStatus);
+
 function callNumber(phoneNumber) {
     window.location.href = `tel:${phoneNumber}`;
 }
@@ -17,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Initialize map
             const map = new maplibregl.Map({
-                container: 'map',
+                container: 'map',   
                 style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=T2ydav4L9diNGz0rJvDh',
                 center: userLocation,
                 zoom: 14
@@ -453,8 +498,9 @@ They are experiencing a ${procedure.title} emergency.`;
         prompt += `\n\nProvide specific first aid guidance considering their medical conditions. Be concise but thorough. Focus on:
 1. Immediate actions needed
 2. What to avoid given their conditions
-3. When to call emergency services
-4. Special precautions due to their medical conditions`;
+3. What to do until emergency services arrive
+4. Special precautions due to their age and medical conditions
+5. Special precautions due to their medical conditions`;
 
         const response = await fetch('https://api.together.xyz/inference', {
             method: 'POST',
