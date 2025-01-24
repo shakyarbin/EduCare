@@ -564,4 +564,56 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-}); 
+});
+
+// Add this function to script.js
+async function callWithSpeech(phoneNumber, serviceType) {
+    try {
+        // Get current location
+        const position = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        // Create location message based on service type
+        let message = '';
+        switch(serviceType) {
+            case 'medical':
+                message = "Medical emergency at my location. I need an ambulance.";
+                break;
+            case 'fire':
+                message = "Fire emergency at my location. I need the fire brigade.";
+                break;
+            case 'police':
+                message = "Emergency at my location. I need police assistance.";
+                break;
+            case 'disaster':
+                message = "Disaster situation at my location. I need immediate assistance.";
+                break;
+            default:
+                message = "Emergency at my location. I need immediate assistance.";
+        }
+
+        // Add location information
+        const locationLink = `https://maps.google.com/?q=${position.coords.latitude},${position.coords.longitude}`;
+        message += ` My exact location: ${locationLink}`;
+
+        // Use speech synthesis to speak the message
+        const speech = new SpeechSynthesisUtterance(message);
+        speech.rate = 0.9; // Slightly slower for clarity
+        speech.pitch = 1;
+        speech.volume = 1;
+
+        // Speak the message
+        window.speechSynthesis.speak(speech);
+
+        // After starting speech, initiate the call
+        speech.onend = () => {
+            window.location.href = `tel:${phoneNumber}`;
+        };
+
+    } catch (error) {
+        console.error('Error in callWithSpeech:', error);
+        // Fallback to regular call if there's an error
+        window.location.href = `tel:${phoneNumber}`;
+    }
+} 
