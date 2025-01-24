@@ -578,39 +578,41 @@ async function callWithSpeech(phoneNumber, serviceType) {
         let message = '';
         switch(serviceType) {
             case 'medical':
-                message = "Medical emergency at my location. I need an ambulance.";
+                message = "Medical emergency. My coordinates are: ";
                 break;
             case 'fire':
-                message = "Fire emergency at my location. I need the fire brigade.";
+                message = "Fire emergency. My coordinates are: ";
                 break;
             case 'police':
-                message = "Emergency at my location. I need police assistance.";
+                message = "Police emergency. My coordinates are: ";
                 break;
             case 'disaster':
-                message = "Disaster situation at my location. I need immediate assistance.";
+                message = "Disaster emergency. My coordinates are: ";
                 break;
             default:
-                message = "Emergency at my location. I need immediate assistance.";
+                message = "Emergency. My coordinates are: ";
         }
 
-        // Add location information
-        const locationLink = `https://maps.google.com/?q=${position.coords.latitude},${position.coords.longitude}`;
-        message += ` My exact location: ${locationLink}`;
+        // Add coordinates to message
+        const latitude = position.coords.latitude.toFixed(6);
+        const longitude = position.coords.longitude.toFixed(6);
+        message += `Latitude ${latitude}, Longitude ${longitude}. Please send help immediately.`;
 
-        // Use speech synthesis to speak the message
-            const speech = new SpeechSynthesisUtterance(message);
-        speech.rate = 0.9; // Slightly slower for clarity
-            speech.pitch = 1;
-            speech.volume = 1;
-            
-        // Speak the message
-        window.speechSynthesis.speak(speech);
+        // Create and configure speech
+        const speech = new SpeechSynthesisUtterance(message);
+        speech.rate = 0.8;  // Slower for better clarity
+        speech.pitch = 1;
+        speech.volume = 1;
+        
+        // Return a promise that resolves when speech is done
+        await new Promise((resolve) => {
+            speech.onend = resolve;
+            window.speechSynthesis.speak(speech);
+        });
 
-        // After starting speech, initiate the call
-            speech.onend = () => {
-                window.location.href = `tel:${phoneNumber}`;
-            };
-            
+        // After speech is complete, make the call
+        window.location.href = `tel:${phoneNumber}`;
+
     } catch (error) {
         console.error('Error in callWithSpeech:', error);
         // Fallback to regular call if there's an error
