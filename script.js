@@ -189,16 +189,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 .setLngLat(coordinates)
                 .setPopup(new maplibregl.Popup().setHTML(`
                     <h3>${name}</h3>
-                            <p class="facility-type">${type}</p>
+                    <p class="facility-type">${type}</p>
                     <p>${distance} km away</p>
-                            <button onclick="callNumber('${getHospitalPhoneNumber(name)}')" class="call-btn">
-                                <i class="fas fa-phone"></i> Call
-                            </button>
+                    <div class="hospital-buttons">
+                        <button onclick="callNumber('${getHospitalPhoneNumber(name)}')" class="call-btn">
+                            <i class="fas fa-phone"></i> Call
+                        </button>
+                        <button onclick="openDirections([${coordinates}])" class="call-btn">
+                            <i class="fas fa-directions"></i> Start
+                        </button>
+                    </div>
                 `))
                 .addTo(map);
 
                         // Add to facility list
                         addFacilityToList(name, coordinates, distance, type);
+
+                        // Add click event to show route when marker is clicked
+                        marker.getElement().addEventListener('click', () => {
+                            showRoute(userLocation, coordinates);
+                        });
         });
 
         // Fit map to show all markers
@@ -599,11 +609,11 @@ async function callWithSpeech(phoneNumber, serviceType) {
         message += `Latitude ${latitude}, Longitude ${longitude}. Please send help immediately.`;
 
         // Create and configure speech
-        const speech = new SpeechSynthesisUtterance(message);
+            const speech = new SpeechSynthesisUtterance(message);
         speech.rate = 0.8;  // Slower for better clarity
-        speech.pitch = 1;
-        speech.volume = 1;
-        
+            speech.pitch = 1;
+            speech.volume = 1;
+            
         // Return a promise that resolves when speech is done
         await new Promise((resolve) => {
             speech.onend = resolve;
@@ -618,4 +628,66 @@ async function callWithSpeech(phoneNumber, serviceType) {
         // Fallback to regular call if there's an error
         window.location.href = `tel:${phoneNumber}`;
     }
+}
+
+// Add this after map initialization in the DOMContentLoaded event listener
+let currentRoute = null; // Store current route line
+
+function showRoute(userLocation, hospitalLocation) {
+    // Remove existing route if any
+    if (currentRoute) {
+        currentRoute.forEach(layer => map.removeLayer(layer.id));
+    }
+
+    // Create a line between user and hospital
+    const routeLine = {
+        'id': 'route',
+        'type': 'line',
+        'source': {
+            'type': 'geojson',
+            'data': {
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+                        userLocation,
+                        hospitalLocation
+                    ]
+                }
+            }
+        },
+        'layout': {
+            'line-join': 'round',
+            'line-cap': 'round'
+        },
+        'paint': {
+            'line-color': '#2196F3',
+            'line-width': 4,
+            'line-opacity': 0.8,
+            'line-dasharray': [1, 1]
+        }
+    };
+
+    // Add the route line to the map
+    map.addLayer(routeLine);
+    currentRoute = [routeLine];
+}
+
+// Add this function to open Google Maps directions
+function openDirections(coordinates) {
+    // Get user's current location
+    navigator.geolocation.getCurrentPosition(position => {
+        const userLat = position.coords.latitude;
+        const userLon = position.coords.longitude;
+        
+        // Extract destination coordinates
+        const [destLon, destLat] = coordinates;
+        
+        // Create Google Maps directions URL
+        const directionsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLon}&destination=${destLat},${destLon}&travelmode=driving`;
+        
+        // Open in new tab/app
+        window.open(directionsUrl, '_blank');
+    });
 } 
