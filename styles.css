@@ -601,6 +601,12 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.first-aid-grid.expanded {
+    padding: 1.5rem;
+    gap: 1.2rem;
 }
 
 .first-aid-item {
@@ -612,12 +618,47 @@ body {
     border: 1px solid #eaeaea;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.first-aid-item.active {
+    background-color: #e3f2fd;
+    border-color: #2196F3;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.first-aid-item.related {
+    background-color: #fff3e0;
+    border-color: #ff9800;
+    transform: scale(1.02);
+}
+
+.first-aid-item.related::after {
+    content: 'Related';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff9800;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    transform: scale(0.9);
 }
 
 .first-aid-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.first-aid-item.active:hover {
+    transform: scale(1.05);
+}
+
+.first-aid-item.related:hover {
+    transform: scale(1.02);
 }
 
 .first-aid-item i {
@@ -907,4 +948,110 @@ body {
     to {
         stroke-dashoffset: 0;
     }
+}
+
+/* Health Hazards Styles */
+.health-hazards {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.health-hazards h3 {
+    color: #d32f2f;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hazards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+}
+
+.hazard-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    background: white;
+    border: 1px solid #ffcdd2;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.hazard-item:hover {
+    background: #fff5f5;
+    transform: translateY(-2px);
+}
+
+.hazard-item.selected {
+    background: #ffebee;
+    border-color: #ef5350;
+    transform: scale(1.02);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hazard-item.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: #ef5350;
+    font-weight: bold;
+}
+
+.hazard-item.selected i {
+    color: #ef5350;
+}
+
+.hazard-item i {
+    color: #d32f2f;
+    font-size: 1.1rem;
+}
+
+.hazard-item span {
+    flex: 1;
+}
+
+/* Update Guidance Content Styles */
+.guidance-content h3 {
+    color: #2196F3;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid #2196F3;
+    padding-bottom: 0.5rem;
+}
+
+/* Add styles for selected hazards summary */
+.selected-hazards {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #fff3cd;
+    border-radius: 8px;
+    border-left: 4px solid #ff9800;
+}
+
+.hazards-summary {
+    color: #856404;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.hazards-summary strong {
+    color: #ff9800;
+}
+
+.guidance-text {
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+.guidance-text p {
+    margin-bottom: 1rem;
 } 

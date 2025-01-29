@@ -226,6 +226,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     }
+
+    // Add click handler for guidance button
+    const guidanceBtn = document.getElementById('guidanceBtn');
+    if (guidanceBtn) {
+        guidanceBtn.addEventListener('click', getFirstAidGuidance);
+    }
 });
 
 // Add this function to calculate distance between two points
@@ -443,46 +449,167 @@ const firstAidProcedures = {
     }
 };
 
-let selectedProcedure = null;
+let selectedHazards = new Set();
 
-// Add click handlers for emergency items
+// Add this function to handle related emergencies
+const relatedEmergencies = {
+    bleeding: ['fracture', 'cpr'],
+    burns: ['heatstroke', 'allergic'],
+    choking: ['cpr', 'drowning'],
+    fracture: ['bleeding', 'stroke'],
+    heartAttack: ['cpr', 'stroke'],
+    cpr: ['heartAttack', 'drowning', 'choking'],
+    allergic: ['poisoning', 'burns'],
+    stroke: ['heartAttack', 'seizure'],
+    seizure: ['stroke', 'cpr'],
+    heatstroke: ['burns', 'cpr'],
+    poisoning: ['allergic', 'cpr'],
+    drowning: ['cpr', 'choking']
+};
+
+// Add this object to define health hazards related to each emergency
+const healthHazards = {
+    bleeding: ['Shock', 'Infection', 'Blood Loss', 'Trauma'],
+    burns: ['Shock', 'Dehydration', 'Infection', 'Respiratory Issues'],
+    choking: ['Oxygen Deprivation', 'Panic', 'Cardiac Arrest'],
+    fracture: ['Shock', 'Internal Bleeding', 'Nerve Damage'],
+    heartAttack: ['Cardiac Arrest', 'Shock', 'Breathing Difficulty'],
+    cpr: ['Brain Damage', 'Rib Fracture', 'Organ Damage'],
+    allergic: ['Anaphylaxis', 'Breathing Difficulty', 'Shock'],
+    stroke: ['Brain Damage', 'Paralysis', 'Speech Problems'],
+    seizure: ['Head Injury', 'Breathing Problems', 'Confusion'],
+    heatstroke: ['Organ Failure', 'Dehydration', 'Brain Damage'],
+    poisoning: ['Organ Damage', 'Breathing Problems', 'Unconsciousness'],
+    drowning: ['Brain Damage', 'Respiratory Failure', 'Cardiac Arrest']
+};
+
+// Update the click handler to show health hazards
 document.addEventListener('DOMContentLoaded', () => {
     const firstAidItems = document.querySelectorAll('.first-aid-item');
     const guidanceBtn = document.querySelector('.guidance-btn');
 
     firstAidItems.forEach(item => {
         item.addEventListener('click', () => {
-            // Remove active class from all items
-            firstAidItems.forEach(i => i.classList.remove('active'));
-            // Add active class to clicked item
-            item.classList.add('active');
-            // Store selected procedure
-            selectedProcedure = item.dataset.procedure;
-            // Enable guidance button
-            guidanceBtn.disabled = false;
+            const procedureId = item.dataset.procedure;
+            
+            // Toggle active class on clicked item
+            item.classList.toggle('active');
+            
+            // Show related emergencies and hazards
+            updateRelatedItems(procedureId);
+            updateHealthHazards();
+            
+            // Update guidance button state
+            updateGuidanceButton();
+
+            // Expand the grid section
+            const gridSection = document.querySelector('.first-aid-grid');
+            gridSection.classList.add('expanded');
         });
     });
+
+    function updateRelatedItems(procedureId) {
+        const activeItems = Array.from(document.querySelectorAll('.first-aid-item.active'))
+            .map(item => item.dataset.procedure);
+        
+        // Clear all related classes first
+        firstAidItems.forEach(item => {
+            if (!item.classList.contains('active')) {
+                item.classList.remove('related');
+            }
+        });
+
+        // Add related class to items related to any active item
+        activeItems.forEach(activeId => {
+            if (relatedEmergencies[activeId]) {
+                relatedEmergencies[activeId].forEach(relatedId => {
+                    const relatedItem = document.querySelector(`.first-aid-item[data-procedure="${relatedId}"]`);
+                    if (relatedItem && !relatedItem.classList.contains('active')) {
+                        relatedItem.classList.add('related');
+                    }
+                });
+            }
+        });
+    }
+
+    function updateHealthHazards() {
+        const hazardsContainer = document.getElementById('healthHazards');
+        const activeItems = Array.from(document.querySelectorAll('.first-aid-item.active'))
+            .map(item => item.dataset.procedure);
+        
+        // Collect all unique hazards from active items
+        const allHazards = new Set();
+        activeItems.forEach(itemId => {
+            if (healthHazards[itemId]) {
+                healthHazards[itemId].forEach(hazard => allHazards.add(hazard));
+            }
+        });
+
+        // Update hazards display
+        if (allHazards.size > 0) {
+            const hazardsList = Array.from(allHazards)
+                .map(hazard => `
+                    <div class="hazard-item ${selectedHazards.has(hazard) ? 'selected' : ''}"
+                         onclick="toggleHazard('${hazard}')">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>${hazard}</span>
+                    </div>
+                `).join('');
+
+            hazardsContainer.innerHTML = `
+                <h3>Related Health Hazards:</h3>
+                <div class="hazards-grid">
+                    ${hazardsList}
+                </div>
+            `;
+            hazardsContainer.style.display = 'block';
+        } else {
+            hazardsContainer.style.display = 'none';
+        }
+    }
+
+    // Update the toggleHazard function
+    window.toggleHazard = function(hazard) {
+        // Find the hazard element using the text content
+        const hazardElements = document.querySelectorAll('.hazard-item');
+        const hazardElement = Array.from(hazardElements).find(el => 
+            el.textContent.trim() === hazard
+        );
+
+        if (hazardElement) {
+            if (selectedHazards.has(hazard)) {
+                selectedHazards.delete(hazard);
+                hazardElement.classList.remove('selected');
+            } else {
+                selectedHazards.add(hazard);
+                hazardElement.classList.add('selected');
+            }
+        }
+    };
 });
 
+// Update the getFirstAidGuidance function
 async function getFirstAidGuidance() {
-    if (!selectedProcedure) {
-        alert('Please select an emergency type');
+    const activeItems = document.querySelectorAll('.first-aid-item.active');
+    if (activeItems.length === 0) {
+        alert('Please select at least one emergency type');
         return;
     }
 
-    const procedure = firstAidProcedures[selectedProcedure];
+    // Get all selected emergencies and their procedures
+    const selectedEmergencies = Array.from(activeItems).map(item => {
+        const procedureId = item.dataset.procedure;
+        return firstAidProcedures[procedureId].title;
+    });
+
+    // Get all selected hazards
+    const selectedHazardsList = Array.from(selectedHazards);
+
     const situationInput = document.getElementById('situationInput').value.trim();
     const guidanceContent = document.getElementById('guidanceContent');
     
-    // Get user's medical information
-    const userInfo = {
-        name: "Rakesh Rana",
-        age: 43,
-        bloodGroup: "O+",
-        allergies: ["Penicillin", "Peanuts"],
-        conditions: ["Type 2 Diabetes", "Hypertension"],
-        medications: ["Metformin (500mg)", "Lisinopril (10mg)"]
-    };
+    // Get user's medical information from the global emergencyInfo object
+    const userInfo = emergencyInfo["Personal Information"];
 
     // Show loading state
     guidanceContent.innerHTML = `
@@ -494,23 +621,27 @@ async function getFirstAidGuidance() {
 
     try {
         let prompt = `You are a first aid expert. Given a patient with the following medical profile:
-- Age: ${userInfo.age}
-- Medical Conditions: ${userInfo.conditions.join(', ')}
-- Allergies: ${userInfo.allergies.join(', ')}
-- Current Medications: ${userInfo.medications.join(', ')}
+- Age: ${userInfo.Age}
+- Medical Conditions: ${userInfo["Medical Conditions"].join(', ')}
+- Allergies: ${userInfo.Allergies.join(', ')}
+- Current Medications: ${userInfo.Medications.join(', ')}
 
-They are experiencing a ${procedure.title} emergency.`;
+They are experiencing the following emergencies: ${selectedEmergencies.join(', ')}.`;
+
+        if (selectedHazardsList.length > 0) {
+            prompt += `\n\nSpecific health hazards identified: ${selectedHazardsList.join(', ')}`;
+        }
 
         if (situationInput) {
             prompt += `\n\nAdditional situation details: ${situationInput}`;
         }
 
-        prompt += `\n\nProvide specific first aid guidance considering their medical conditions. Be concise but thorough. Focus on:
-1. Immediate actions needed
-2. What to avoid given their conditions
-3. What to do until emergency services arrive
-4. Special precautions due to their age and medical conditions
-5. Special precautions due to their medical conditions`;
+        prompt += `\n\nProvide specific first aid guidance considering their medical conditions and the identified hazards. Be concise but thorough. Focus on:
+1. Immediate actions needed for each emergency condition
+2. How to address the specific health hazards identified
+3. What to avoid given their medical conditions
+4. What to do until emergency services arrive
+5. Special precautions due to their age and medical conditions`;
 
         const response = await fetch('https://api.together.xyz/inference', {
             method: 'POST',
@@ -535,7 +666,14 @@ They are experiencing a ${procedure.title} emergency.`;
         if (data.output && data.output.choices && data.output.choices[0]) {
             const guidance = data.output.choices[0].text;
             guidanceContent.innerHTML = `
-                <h3>${procedure.title} - First Aid Guidance</h3>
+                <h3>${selectedEmergencies.join(' & ')} - First Aid Guidance</h3>
+                <div class="selected-hazards">
+                    ${selectedHazardsList.length > 0 ? `
+                        <div class="hazards-summary">
+                            <strong>Addressing Health Hazards:</strong> ${selectedHazardsList.join(', ')}
+                        </div>
+                    ` : ''}
+                </div>
                 <div class="guidance-text">
                     ${guidance.split('\n').map(line => `<p>${line}</p>`).join('')}
                 </div>
@@ -690,4 +828,12 @@ function openDirections(coordinates) {
         // Open in new tab/app
         window.open(directionsUrl, '_blank');
     });
+}
+
+function updateGuidanceButton() {
+    const guidanceBtn = document.getElementById('guidanceBtn');
+    if (guidanceBtn) {
+        const hasActiveItems = document.querySelectorAll('.first-aid-item.active').length > 0;
+        guidanceBtn.disabled = !hasActiveItems;
+    }
 } 
