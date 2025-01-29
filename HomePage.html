@@ -55,10 +55,16 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      color: #333;
+      color: #2196F3;
       transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .logo a {
+      text-decoration: none;
+      color: inherit;
     }
 
     .logo i {
@@ -67,12 +73,12 @@
     }
 
     .logo:hover {
-      color: #ff4444;
-      text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+      color: #2196F3;
+      text-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
     }
 
     .logo:hover i {
-      color: #ff4444;
+      color: #2196F3;
     }
 
     .nav-links {
@@ -82,51 +88,99 @@
     }
 
     .nav-links a {
-      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
       color: #333;
+      text-decoration: none;
       font-weight: 500;
-      font-size: 1rem;
+      font-size: 0.95rem;
       transition: all 0.3s ease;
-      position: relative;
+      border-radius: 25px;
     }
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -4px;
-      left: 0;
-      background-color: #ff4444;
-      transition: width 0.3s ease;
+    .nav-links a i {
+      font-size: 1rem;
+      color: #2196F3;
+      transition: color 0.3s ease;
     }
 
     .nav-links a:hover {
-      color: #ff4444;
-      text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+      background: #2196F3;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4),
+                  0 0 20px rgba(33, 150, 243, 0.4);
+    }
+
+    .nav-links a:hover i {
+      color: white;
     }
 
     .nav-links a:hover::after {
-      width: 100%;
+      display: none;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background: #2196F3;
+      color: white;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 2px 5px rgba(33, 150, 243, 0.2);
+    }
+
+    .nav-btn i {
+      font-size: 1rem;
+    }
+
+    .nav-btn:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4),
+                  0 0 20px rgba(33, 150, 243, 0.4);
+    }
+
+    .nav-btn.active {
+      background: #1976D2;
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
     }
 
     .portal-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
       padding: 0.8rem 1.5rem;
-      background: var(--primary-color);
-      color: white !important;
-      border-radius: 50px;
+      background: #2196F3;
+      color: white;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
       transition: all 0.3s ease;
-      font-size: 1.1rem;
+      border: none;
+      box-shadow: 0 2px 5px rgba(33, 150, 243, 0.2);
     }
 
-    .danger {
-      background-color: rgb(190, 82, 82);
+    .portal-btn i {
+      font-size: 1rem;
     }
 
     .portal-btn:hover {
-      background: var(--secondary-color);
+      background: #1976D2;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4),
+                  0 0 20px rgba(33, 150, 243, 0.4);
     }
 
     .portal-btn.disabled {
@@ -142,7 +196,7 @@
       }
 
       .logo {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
       }
 
       .nav-links {
@@ -150,7 +204,9 @@
       }
 
       .nav-links a {
-        font-size: 0.9rem;
+        width: 100%;
+        justify-content: center;
+        padding: 0.8rem 1.2rem;
       }
     }
 
@@ -176,7 +232,12 @@
       }
 
       .nav-links a:hover {
-        background: rgba(255, 68, 68, 0.1);
+        background: rgba(33, 150, 243, 0.1);
+      }
+
+      .nav-btn {
+        width: 100%;
+        justify-content: center;
       }
     }
 
@@ -438,30 +499,43 @@
     }
 
     .hero-btn {
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: bold;
-      display: flex;
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      transition: all 0.3s;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
     }
 
     .hero-btn.primary {
-      background: var(--text-light);
-      color: var(--primary-color);
+      background: #2196F3;
+      color: white;
+      box-shadow: 0 2px 5px rgba(33, 150, 243, 0.2);
+    }
+
+    .hero-btn.primary:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4),
+                  0 0 20px rgba(33, 150, 243, 0.4);
     }
 
     .hero-btn.secondary {
       background: transparent;
-      color: var(--text-light);
-      border: 2px solid var(--text-light);
+      color: white;
+      border: 2px solid white;
     }
 
-    .hero-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    .hero-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3),
+                  0 0 20px rgba(255, 255, 255, 0.2);
     }
 
     .hero-highlights {
@@ -596,7 +670,7 @@
       }
 
       .nav-btn {
-        padding: 0.6rem 1rem;
+        padding: 0.5rem 1rem;
         font-size: 0.9rem;
       }
 
@@ -1091,6 +1165,26 @@
             -webkit-overflow-scrolling: touch;
         }
     }
+
+    /* Add these styles for the login button */
+    .login-nav-btn {
+        background: #ff3333 !important;
+        color: white !important;
+        padding: 0.6rem 1.2rem;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .login-nav-btn i {
+        color: white !important;
+    }
+
+    .login-nav-btn:hover {
+        background: #e60000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 51, 51, 0.4),
+                    0 0 20px rgba(255, 51, 51, 0.4) !important;
+    }
   </style>
 </head>
 
@@ -1102,12 +1196,22 @@
         <a href="HomePage.html">EduCare</a>
       </div>
       <div class="nav-links">
-        <a href="profiles.html">Portals</a>
-        <a href="#features">Features</a>
-        <a href="#stats">Stats</a>
-
-        
-           
+        <a href="profiles.html">
+          <i class="fas fa-users"></i>
+          Portals
+        </a>
+        <a href="#features">
+          <i class="fas fa-star"></i>
+          Features
+        </a>
+        <a href="#stats">
+          <i class="fas fa-chart-bar"></i>
+          Stats
+        </a>
+        <a href="login.html" class="nav-btn login-nav-btn">
+          <i class="fas fa-sign-in-alt"></i>
+          Login
+        </a>
       </div>
     </div>
   </nav>
