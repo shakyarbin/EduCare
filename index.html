@@ -1,92 +1,1474 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduCare</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduCare - Emergency Healthcare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=VG9KqJlW1MNXr5QCU2JnFpOivi0C2eG7mLwslI67MbnAmlzM_ZnkCZh-7A0p-j0VGv9foj57mtatN3Vdo4wyXSeWqEbGk-ah3bvEezHMzLTW8ovygeI43LNOLSLxUHl5RhPeOuuK_fYU8hwnculeT62lb5pytCSIRtoVWD0LDTsBTbd6qApuezFMrwQ2sHaH8Htr1fHMY3cOVe48nZRyyiQkClZ3GwJOg_epSxP37cmkDIH4gf42zcWHMjmAIWNE3XFOSldERDudHgoP8RCrHw" charset="UTF-8"></script><script src="./index_files/jquery.min.js.download"></script>
+  <script src="./index_files/jquery.waypoints.min.js.download"></script>
+  <script src="./index_files/jquery.counterup.min.js.download"></script>
+  <link href="./index_files/css2" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2196f3;
+      --secondary-color: #1976d2;
+      --text-light: #ffffff;
+      --text-dark: #333333;
+      --disabled-color: #9e9e9e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .navbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2196F3;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .logo a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo i {
+      color: #2196F3;
+      transition: color 0.3s ease;
+    }
+
+    .logo:hover {
+      color: #2196F3;
+      text-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+    }
+
+    .logo:hover i {
+      color: #2196F3;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      border-radius: 25px;
+    }
+
+    .nav-links a i {
+      font-size: 1rem;
+      color: #2196F3;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background: #2196F3;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4),
+                  0 0 20px rgba(33, 150, 243, 0.4);
+    }
+
+    .nav-links a:hover i {
+      color: white;
+    }
+
+    .nav-links a:hover::after {
+      display: none;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background: #2196F3;
+      color: white;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 2px 5px rgba(33, 150, 243, 0.2);
+    }
+
+    .nav-btn i {
+      font-size: 1rem;
+    }
+
+    .nav-btn:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4),
+                  0 0 20px rgba(33, 150, 243, 0.4);
+    }
+
+    .nav-btn.active {
+      background: #1976D2;
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+    }
+
+    .portal-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: #2196F3;
+      color: white;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 2px 5px rgba(33, 150, 243, 0.2);
+    }
+
+    .portal-btn i {
+      font-size: 1rem;
+    }
+
+    .portal-btn:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4),
+                  0 0 20px rgba(33, 150, 243, 0.4);
+    }
+
+    .portal-btn.disabled {
+      background-color: var(--disabled-color);
+      cursor: not-allowed;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0.8rem 1rem;
+      }
+
+      .logo {
+        font-size: 1.4rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        width: 100%;
+        justify-content: center;
+        padding: 0.8rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-container {
+        flex-direction: column;
+        padding: 0.8rem;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 0.5rem;
+        text-align: center;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.8);
+      }
+
+      .nav-links a:hover {
+        background: rgba(33, 150, 243, 0.1);
+      }
+
+      .nav-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .medical-info {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin: 2rem 0;
+    }
+
+    .medical-info h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .medical-info p {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #555;
+    }
+
+    .parallax-section {
+      position: relative;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1631248055158-edec7a3c072b?q=80&w=1974&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text-light);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1000px;
+      padding: 0 2rem;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .expo-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .expo-badge:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .stats-section {
+      padding: 5rem 0;
+      background-color: var(--text-light);
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .portal-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .portal-btn {
+      padding: 1.2rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .portal-btn.active {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      box-shadow: 0 4px 6px rgba(33, 150, 243, 0.3);
+    }
+
+    .portal-btn.disabled {
+      background-color: var(--disabled-color);
+      color: var(--text-light);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .portal-btn.active:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(33, 150, 243, 0.4);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 3rem 0;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-section h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .footer-section p {
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .footer-section .motto {
+      font-style: italic;
+      margin-top: 0.5rem;
+      color: #90caf9;
+    }
+
+    .footer-section a {
+      color: #90caf9;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .trinity-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .trinity-badge img {
+      height: 60px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .hero-btn.primary {
+      background: #2196F3;
+      color: white;
+      box-shadow: 0 2px 5px rgba(33, 150, 243, 0.2);
+    }
+
+    .hero-btn.primary:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4),
+                  0 0 20px rgba(33, 150, 243, 0.4);
+    }
+
+    .hero-btn.secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .hero-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3),
+                  0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-highlights {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .highlight-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+    }
+
+    .highlight-item i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--text-light);
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-30px);
+      }
+
+      60% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .features-section {
+      padding: 5rem 2rem;
+      background: var(--text-light);
+    }
+
+    .features-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary-color);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .feature-card p {
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    .feature-list i {
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 0.8rem;
+      }
+
+      .nav-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .trinity-badge {
+        display: none;
+      }
+
+      .hero-highlights {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .features-container {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+    }
+
+    .portals-section {
+      padding: 6rem 2rem;
+      background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+        url('https://images.unsplash.com/photo-1639772823849-6efbd173043c?q=80&w=1374&auto=format&fit=crop');
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .portals-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portal-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .portal-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .portal-icon {
+      width: 60px;
+      height: 60px;
+      background: #2196F3;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      perspective: 1000px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .portal-card:hover .portal-icon {
+      animation: flipCoin 0.6s ease-out forwards;
+    }
+
+    @keyframes flipCoin {
+      0% {
+        transform: rotateY(0);
+      }
+      100% {
+        transform: rotateY(360deg);
+      }
+    }
+
+    .portal-icon i {
+      font-size: 24px;
+      color: white;
+      backface-visibility: visible;
+    }
+
+    .portal-btn {
+      padding: 1rem 2rem;
+      background: #2196F3;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      margin-top: auto;
+    }
+
+    .portal-btn:hover {
+      background: #1976D2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+    }
+
+    .portal-features {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+
+    .portal-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+      color: #666;
+    }
+
+    .portal-features i {
+      color: #2196F3;
+    }
+
+    .search-preview {
+      margin-top: 1.5rem;
+      position: relative;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .search-box input,
+    .search-box select {
+      padding: 0.8rem 1rem;
+      border: 2px solid #e1e1e1;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      background: #f8f9fa;
+      cursor: not-allowed;
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .search-box select {
+      min-width: 150px;
+    }
+
+    .search-btn {
+      padding: 0.8rem 1.5rem;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .beta-tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .search-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .search-feature {
+      text-align: center;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .search-feature i {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .portal-card:hover .search-box input,
+    .portal-card:hover .search-box select {
+      border-color: var(--primary-color);
+    }
+
+    .portal-card:hover .search-btn {
+      background: var(--secondary-color);
+    }
+
+    .feature-highlight {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--primary-color);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      transform: rotate(15deg);
+    }
+
+    .beta-tag {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .scroll-top-btn:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .scroll-top-btn.visible {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .scroll-top-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+
+    .feature-card.disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .feature-card.disabled .feature-icon {
+      color: var(--disabled-color);
+    }
+
+    .feature-card.disabled:hover {
+      transform: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card.disabled:hover::before {
+      transform: scaleX(0);
+    }
+
+    .portal-card .portal-link i {
+      margin-right: 0.5rem;
+    }
+
+    .portal-card:hover .portal-icon i {
+      transform: rotate(360deg);
+      transition: transform 0.5s ease;
+    }
+
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+        /* Hero Section */
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+        }
+
+        .hero-buttons {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .hero-btn {
+            width: 100%;
+        }
+
+        /* Portals Section */
+        .portals-container {
+            grid-template-columns: 1fr;
+            padding: 1rem;
+        }
+
+        .portal-card {
+            padding: 1.5rem;
+        }
+
+        /* Features Section */
+        .features-container {
+            grid-template-columns: 1fr;
+            padding: 1rem;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+        }
+
+        /* Navigation */
+        .nav-container {
+            padding: 1rem;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            width: 100%;
+            padding: 1rem 0;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 1.8rem;
+            padding: 0 1rem;
+            margin: 2rem 0;
+        }
+
+        /* Footer */
+        .footer-content {
+            grid-template-columns: 1fr;
+            padding: 2rem 1rem;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .footer-section {
+            text-align: center;
+        }
+    }
+
+    /* Small Mobile Devices */
+    @media (max-width: 480px) {
+        .hero h1 {
+            font-size: 2rem;
+        }
+
+        .stats-container {
+            grid-template-columns: 1fr;
+        }
+
+        .stat-card {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+        }
+
+        .portal-icon {
+            width: 50px;
+            height: 50px;
+        }
+
+        .portal-icon i {
+            font-size: 20px;
+        }
+
+        .portal-btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+    }
+
+    /* Fix for iOS Safari 100vh issue */
+    @supports (-webkit-touch-callout: none) {
+        .hero {
+            min-height: -webkit-fill-available;
+        }
+    }
+
+    /* Improve touch targets for mobile */
+    @media (hover: none) and (pointer: coarse) {
+        .nav-links a,
+        .portal-btn,
+        .feature-card,
+        .stat-card {
+            min-height: 44px;
+            padding: 12px;
+        }
+
+        .portal-features li,
+        .feature-list li {
+            padding: 8px 0;
+        }
+
+        .scroll-top-btn {
+            width: 50px;
+            height: 50px;
+            right: 15px;
+            bottom: 15px;
+        }
+    }
+
+    /* Add smooth scrolling for iOS */
+    @media screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 0) {
+        .hero,
+        .portals-section,
+        .features-section,
+        .stats-section {
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+
+    /* Add these styles for the login button */
+    .login-nav-btn {
+        background: #ff3333 !important;
+        color: white !important;
+        padding: 0.6rem 1.2rem;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .login-nav-btn i {
+        color: white !important;
+    }
+
+    .login-nav-btn:hover {
+        background: #e60000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 51, 51, 0.4),
+                    0 0 20px rgba(255, 51, 51, 0.4) !important;
+    }
+  </style>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-heartbeat"></i>
-                <a href="HomePage.html" style="text-decoration: none; color: #2196F3;"> EduCare </a>
-            </div>
-            <div class="nav-links">
-                <a href="index.html" class="active"><i class="fas fa-user-circle"></i> Profile</a>
-                <a href="contact.html"><i class="fas fa-phone-alt"></i> Emergency Contact</a>
-                <a href="emergency.html"><i class="fas fa-ambulance"></i> Emergency Services</a>
-                <a href="firstaid.html"><i class="fas fa-kit-medical"></i> First Aid</a>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="info-card">
-            <div class="profile-section">
-                <div class="profile-image">
-                    <img src="https://media.discordapp.net/attachments/1151544599475666978/1333982495498047579/non-main.jpg?ex=679adf83&is=67998e03&hm=9bbe570bfc71a42b2f4320c5f2a89157eada116170fce56ccd9a12e8cc3ad66c&=&format=webp&width=504&height=502">
-                </div>
-                <div class="profile-header">
-                    <h2>Gobinda Prasad Paudel</h2>
-                    <span class="profile-subtitle">ID: #MED123456</span>
-                </div>
-            </div>
-            <div class="info-content">
-                <div class="info-group">
-                    <h3><i class="fas fa-user-tag"></i> Personal Information</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Lokanthali, Bhaktapur</p>
-                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +977 9658751244</p>
-                    <p><i class="fas fa-calendar"></i> <strong>DOB:</strong> 07/02/2007 (17 years)</p>
-                    <p><i class="fas fa-venus-mars"></i> <strong>Gender:</strong> Male</p>
-                    <p><i class="fas fa-id-card"></i> <strong>SSN:</strong> 4422-12-4567</p>
-                </div>
 
-                <div class="info-group">
-                    <h3><i class="fas fa-notes-medical"></i> Medical Information</h3>
-                    <p><i class="fas fa-tint"></i> <strong>Blood Group:</strong> A+</p>
-                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 75 kg</p>
-                    <p><i class="fas fa-ruler-vertical"></i> <strong>Height:</strong> 175 cm</p>
-                    <p><i class="fas fa-notes-medical"></i> <strong>Medical Conditions:</strong> Type 2 Diabetes, Hypertension</p>
-                    <p><i class="fas fa-allergies"></i> <strong>Allergies:</strong> Penicillin, Peanuts</p>
-                    <p><i class="fas fa-pills"></i> <strong>Medications:</strong> Metformin (500mg), Lisinopril (10mg)</p>
-                </div>
-
-                <div class="info-group">
-                    <h3><i class="fas fa-file-medical"></i> Insurance Information</h3>
-                    <p><i class="fas fa-hospital-user"></i> <strong>Provider:</strong> Rastriya Jiban Beema Company Limited</p>
-                    <p><i class="fas fa-id-card-alt"></i> <strong>Policy Number:</strong> HCP987654321</p>
-                </div>
-            </div>
-        </div>
-        <div class="info-card emergency-message-card">
-            <div class="card-header">
-                <i class="fas fa-exclamation-circle"></i>
-                <h2>Emergency Messages</h2>
-            </div>
-            <div class="message-content">
-                <div class="message-item">
-                    <i class="fas fa-allergies"></i>
-                    <p>I am allergic to penicillin and peanuts. Please check my medical information above.</p>
-                </div>
-                <div class="message-item">
-                    <i class="fas fa-pills"></i>
-                    <p>I take daily medication for Type 2 Diabetes and Hypertension.</p>
-                </div>
-                <div class="message-item">
-                    <i class="fas fa-language"></i>
-                    <p>I speak English and Nepali.</p>
-                </div>
-                <div class="message-item">
-                    <i class="fas fa-id-card-alt"></i>
-                    <p>My emergency contacts are listed in the Emergency Contact page.</p>
-                </div>
-            </div>
-        </div>
-        <button class="emergency-btn" onclick="window.location.href='contact.html'">
-            <i class="fas fa-ambulance"></i> Emergency Contact
-        </button>
+<body cz-shortcut-listen="true">
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-heartbeat"></i>
+        <a href="HomePage.html">EduCare</a>
+      </div>
+      <div class="nav-links">
+        <a href="profiles.html">
+          <i class="fas fa-users"></i>
+          Portals
+        </a>
+        <a href="#features">
+          <i class="fas fa-star"></i>
+          Features
+        </a>
+        <a href="#stats">
+          <i class="fas fa-chart-bar"></i>
+          Stats
+        </a>
+        <a href="login.html" class="nav-btn login-nav-btn">
+          <i class="fas fa-sign-in-alt"></i>
+          Login
+        </a>
+      </div>
     </div>
-</body>
-</html> 
+  </nav>
+
+  <section class="hero parallax-section">
+    <div class="hero-content">
+      <h1>Welcome to EduCare</h1>
+      <p>Your Emergency Healthcare Companion</p>
+      <div class="hero-buttons">
+        <a href="#features" class="hero-btn primary">
+          <i class="fas fa-info-circle"></i>
+          Learn More
+        </a>
+        <a href="#portals" class="hero-btn secondary">
+          <i class="fas fa-user-plus"></i>
+          Access Portal
+        </a>
+      </div>
+      <div class="hero-highlights">
+        <div class="highlight-item">
+          <i class="fas fa-kit-medical"></i>
+          <span>First Aid Guide</span>
+        </div>
+        <div class="highlight-item">
+          <i class="fas fa-hospital"></i>
+          <span>Emergency Services</span>
+        </div>
+        <div class="highlight-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>Quick Contact</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <section id="portals" class="portals-section">
+    <h2 class="section-title">Access Portals</h2>
+    <div class="portals-container">
+        <div class="portal-card">
+            <div class="portal-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>College Portal</h3>
+            <p>Access medical profiles and emergency information of registered individuals.</p>
+            <ul class="portal-features">
+                <li><i class="fas fa-check-circle"></i> View Medical Profiles</li>
+                <li><i class="fas fa-check-circle"></i> Emergency Contact Info</li>
+                <li><i class="fas fa-check-circle"></i> Quick Response QR</li>
+                <li><i class="fas fa-check-circle"></i> Blood Group Directory</li>
+            </ul>
+            <a href="profiles.html" class="portal-btn">View All Profiles</a>
+        </div>
+
+        <div class="portal-card">
+            <div class="portal-icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h3>Individual Portal</h3>
+            <p>Access your personal medical profile and emergency information.</p>
+            <ul class="portal-features">
+                <li><i class="fas fa-check-circle"></i> Medical Profile</li>
+                <li><i class="fas fa-check-circle"></i> Emergency Contacts</li>
+                <li><i class="fas fa-check-circle"></i> First Aid Guide</li>
+            </ul>
+            <a href="https://shakyarbin.github.io/EduCare/" class="portal-btn" target="_blank">Access Profile</a>
+        </div>
+
+        <div class="portal-card">
+            <div class="portal-icon">
+                <i class="fas fa-ambulance"></i>
+            </div>
+            <h3>Emergency Portal</h3>
+            <p>Quick access to emergency services and medical facilities.</p>
+            <ul class="portal-features">
+                <li><i class="fas fa-check-circle"></i> Emergency Numbers</li>
+                <li><i class="fas fa-check-circle"></i> Nearby Hospitals</li>
+                <li><i class="fas fa-check-circle"></i> First Aid</li>
+            </ul>
+            <a href="emergency.html" class="portal-btn">Access Services</a>
+        </div>
+    </div>
+  </section>
+
+  <section class="features-section" id="features">
+    <h2 class="section-title">Our Features</h2>
+    <div class="features-container">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-database"></i>
+        </div>
+        <h3>Emergency Contact Database</h3>
+        <p>Instant access to blood donors across colleges and communities during emergencies. Quick response system for critical situations.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check"></i> Emergency Contact Using QR Code</li>
+          <li><i class="fas fa-check"></i> Emergency notifications</li>
+          <li><i class="fas fa-check"></i> Direct contact system</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Real-Time Availability</h3>
+        <p>Live tracking of blood components availability in nearby facilities and connected institutions.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check"></i> Blood type tracking</li>
+          <li><i class="fas fa-check"></i> Component availability</li>
+          <li><i class="fas fa-check"></i> Location-based search</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-user-friends"></i>
+        </div>
+        <h3>Donor Registry</h3>
+        <p>Comprehensive system for managing volunteer donors with automated notification system.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check"></i> Donor profiles</li>
+          <li><i class="fas fa-check"></i> Medical history tracking</li>
+          <li><i class="fas fa-check"></i> Donation scheduling</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-section" id="stats">
+    <h2 class="section-title">Emergency Response Network</h2>
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-number" data-counter="50">50</div>
+        <p>Nearby Hospitals</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-counter="100">100</div>
+        <p>Emergency Procedures</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-counter="24">24</div>
+        <p>Hours Support</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-counter="1000">1000</div>
+        <p>Lives Supported</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About EduCare</h4>
+        <p>A humanitarian initiative by Trinity Computer Council (TCC) to revolutionize healthcare management in
+          educational institutions. Our objective is to create a seamless network connecting colleges,
+          communities, and
+          individuals for efficient blood donation and emergency response systems.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Developed By</h4>
+        <p>Trinity Computer Council (TCC)</p>
+        <p class="motto">"Revolutionizing Healthcare Management in Educational Institutions"</p>
+      </div>
+      <div class="footer-section">
+        <p>Developed for <a href="https://www.trinity.edu.np/scitech-and-mgmt-expo-2025" target="_blank">Trinity
+            Sci
+            Tech Expo 2025</a></p>
+        <p>© 2025 EduCare. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollToTop" class="scroll-top-btn">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script>
+    // Counter animation that triggers on scroll
+    const statsSection = document.querySelector('.stats-section');
+    let hasAnimated = false;
+
+    function startCounter() {
+        $('.stat-number').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).data('counter')
+            }, {
+                duration: 2000,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+    }
+
+    // Check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', () => {
+        if (!hasAnimated && isInViewport(statsSection)) {
+            startCounter();
+            hasAnimated = true; // Ensure animation only happens once
+        }
+    });
+
+    // Initial check in case stats are already visible
+    if (isInViewport(statsSection)) {
+        startCounter();
+        hasAnimated = true;
+    }
+
+    // Parallax effect
+    window.addEventListener('scroll', function () {
+      let scrolled = window.pageYOffset;
+      let parallax = document.querySelector('.parallax-section');
+      let coords = (scrolled * 0.4) + 'px';
+      parallax.style.backgroundPositionY = coords;
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Scroll to top button functionality
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+</body></html>

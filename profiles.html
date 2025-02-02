@@ -15,8 +15,8 @@
                 EduCare
             </div>
             <div class="nav-links">
-                <a href="HomePage.html">Home</a>
-                <a href="index.html" class="active">Profiles</a>
+                <a href="index.html">Home</a>
+                <a href="profiles.html" class="active">Profiles</a>
                 <a href="emergency.html">Emergency</a>
                 <a href="firstaid.html">First Aid</a>
             </div>
@@ -32,15 +32,16 @@
             <div class="profiles-grid">
                 <div class="profile-item">
                     <div class="profile-pic">
-                        <img src="https://media.discordapp.net/attachments/1151544599475666978/1333982495498047579/non-main.jpg?ex=679adf83&is=67998e03&hm=9bbe570bfc71a42b2f4320c5f2a89157eada116170fce56ccd9a12e8cc3ad66c&=&format=webp&width=504&height=502" alt="Govinda Paudel">
+                        <img src="https://media.discordapp.net/attachments/1151544599475666978/1333982495498047579/non-main.jpg?ex=67a0ce43&is=679f7cc3&hm=71ea59ae3e1d955352b583de59234c068885be51bf19e172969559f5f165d230&=&format=webp&width=504&height=502" alt="Govinda Paudel">
                     </div>
                     <div class="profile-info">
                         <h3>Govinda Paudel</h3>
                         <p class="profile-id">ID: #MED123457</p>
                         <p class="college-name"><i class="fas fa-university"></i> Trinity Int'l College</p>
+                        <p class="blood-group"><i class="fas fa-tint"></i> Blood Group: A+</p>
                     </div>
                     <div class="profile-actions">
-                        <a href="index.html" class="view-btn">
+                        <a href="Govinda.html" class="view-btn">
                             <i class="fas fa-eye"></i> View
                         </a>
                         <a href="login.html" class="edit-btn">
@@ -51,15 +52,16 @@
 
                 <div class="profile-item">
                     <div class="profile-pic">
-                        <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Rakesh Rana">
+                        <img src="https://media.discordapp.net/attachments/1287405810737090752/1335613808093167778/20230412_1135393.jpg?ex=67a0ceca&is=679f7d4a&hm=a15d46466e6084f14f099705664a2236cdca1087d849f77edc187c90ca378f5f&=&format=webp&width=320&height=630" alt="Arbin Shakya">
                     </div>
                     <div class="profile-info">
-                        <h3>Rakesh Rana</h3>
+                        <h3>Arbin Shakya</h3>
                         <p class="profile-id">ID: #MED123456</p>
                         <p class="college-name"><i class="fas fa-university"></i> Trinity Int'l College</p>
+                        <p class="blood-group"><i class="fas fa-tint"></i> Blood Group: A+</p>
                     </div>
                     <div class="profile-actions">
-                        <a href="individual1.html" class="view-btn">
+                        <a href="Arbin.html" class="view-btn">
                             <i class="fas fa-eye"></i> View
                         </a>
                         <a href="login.html" class="edit-btn">
@@ -70,15 +72,16 @@
 
                 <div class="profile-item">
                     <div class="profile-pic">
-                        <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Shuvekshya Pandey">
+                        <img src="https://media.discordapp.net/attachments/1288323126467231840/1335626957152325702/IMG20241013133907.jpg?ex=67a0db09&is=679f8989&hm=60bfd31d49e7ce3eee3dcaf55522c12d0e966c93e54aa0f740fc78add53640ae&=&format=webp&width=840&height=630" alt="Diya Nepal">
                     </div>
                     <div class="profile-info">
-                        <h3>Hari Bahadur</h3>
+                        <h3>Diya Nepal</h3>
                         <p class="profile-id">ID: #MED123458</p>
                         <p class="college-name"><i class="fas fa-university"></i> Trinity Int'l College</p>
+                        <p class="blood-group"><i class="fas fa-tint"></i> Blood Group: AB+</p>
                     </div>
                     <div class="profile-actions">
-                        <a href="individual2.html" class="view-btn">
+                        <a href="Diya.html" class="view-btn">
                             <i class="fas fa-eye"></i> View
                         </a>
                         <a href="login.html" class="edit-btn">
@@ -95,12 +98,12 @@
             background: white;
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin-top: 80px;
+            margin-top: 5rem;
             padding-bottom: 2rem;
         }
 
         .profiles-grid {
-            padding: 2rem;
+            padding: 1.5rem;
             display: grid;
             gap: 1.5rem;
         }
@@ -115,7 +118,6 @@
             transition: all 0.3s ease;
             background: linear-gradient(145deg, #ffffff, #f0f4f8);
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            min-height: 120px;
         }
 
         .profile-item:hover {
@@ -231,31 +233,75 @@
         }
 
         @media (max-width: 768px) {
-            .profile-pic {
-                width: 120px;
-                height: 120px;
-                margin: 0 auto;
-            }
-            
-            .profile-item {
-                min-height: auto;
-                padding: 2rem;
+            .profiles-card {
+                margin-top: 4rem;
+                border-radius: 12px;
             }
 
-            .college-name {
-                justify-content: center;
+            .profiles-grid {
+                padding: 1rem;
+            }
+
+            .profile-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .profile-pic {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto;
+            }
+
+            .profile-info {
+                width: 100%;
             }
 
             .profile-actions {
-                flex-direction: column;
                 width: 100%;
-                gap: 0.8rem;
+                flex-direction: row;
+                justify-content: center;
+                gap: 1rem;
                 margin-top: 1rem;
             }
 
             .view-btn, .edit-btn {
+                padding: 0.6rem 1.2rem;
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profiles-card {
+                margin-top: 3.5rem;
+            }
+
+            .profile-item {
+                padding: 1rem;
+            }
+
+            .profile-actions {
+                flex-direction: column;
+            }
+
+            .view-btn, .edit-btn {
                 width: 100%;
-                justify-content: center;
+            }
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-container {
+            padding: 0.8rem 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0.6rem 1rem;
             }
         }
 
@@ -279,6 +325,20 @@
             --secondary-color: #1976d2;
             --text-light: #ffffff;
             --text-dark: #333333;
+        }
+
+        .blood-group {
+            color: #e53935;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .blood-group i {
+            color: #e53935;
         }
     </style>
 </body>
