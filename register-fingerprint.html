@@ -137,6 +137,45 @@
             transform: none;
             box-shadow: none;
         }
+
+        .form-group {
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+        }
+
+        .error-message {
+            color: #f44336;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -146,8 +185,17 @@
         </div>
         <div class="register-text">
             <h2>Register Fingerprint</h2>
-            <p>Use your device's fingerprint sensor to register</p>
+            <p>Link your profile with fingerprint authentication</p>
         </div>
+        
+        <div class="form-group">
+            <label for="profileUrl">Your Profile URL</label>
+            <input type="text" id="profileUrl" 
+                   placeholder="e.g., index.html or individual1.html"
+                   required>
+            <div class="error-message" id="urlError">Please enter a valid profile URL</div>
+        </div>
+
         <div class="progress-container">
             <div class="progress-bar"></div>
         </div>
@@ -163,59 +211,68 @@
             const container = document.querySelector('.register-container');
             const status = document.querySelector('.status');
             const btn = document.querySelector('.register-btn');
+            const profileUrl = document.getElementById('profileUrl').value;
+            const urlError = document.getElementById('urlError');
+            
+            // Validate profile URL
+            if (!profileUrl) {
+                urlError.textContent = 'Please enter your profile URL';
+                urlError.classList.add('show');
+                return;
+            }
+
+            // Basic URL validation
+            if (!profileUrl.endsWith('.html')) {
+                urlError.textContent = 'Please enter a valid .html profile URL';
+                urlError.classList.add('show');
+                return;
+            }
+
+            urlError.classList.remove('show');
             
             try {
                 btn.disabled = true;
                 container.classList.add('recording');
                 status.textContent = 'Initializing fingerprint sensor...';
 
-                // Generate random challenge
-                const challenge = new Uint8Array(32);
-                crypto.getRandomValues(challenge);
-
-                // Create PublicKeyCredentialCreationOptions
-                const createCredentialOptions = {
-                    challenge: challenge,
-                    rp: {
-                        name: "EduCare",
-                        id: window.location.hostname
-                    },
-                    user: {
-                        id: Uint8Array.from("arbin", c => c.charCodeAt(0)),
-                        name: "arbin",
-                        displayName: "Arbin"
-                    },
-                    pubKeyCredParams: [{
-                        type: "public-key",
-                        alg: -7 // ES256
-                    }],
-                    authenticatorSelection: {
-                        authenticatorAttachment: "platform",
-                        requireResidentKey: false,
-                        userVerification: "required"
-                    },
-                    timeout: 60000,
-                    attestation: "direct"
+                // Request fingerprint authentication
+                const options = {
+                    publicKey: {
+                        challenge: new Uint8Array([1, 2, 3, 4]),
+                        rp: { name: 'EduCare' },
+                        user: {
+                            id: new Uint8Array([1, 2, 3, 4]),
+                            name: 'arbin',
+                            displayName: 'Arbin'
+                        },
+                        pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
+                        authenticatorSelection: {
+                            authenticatorAttachment: 'platform',
+                            userVerification: 'required'
+                        }
+                    }
                 };
 
                 status.textContent = 'Place your finger on the sensor';
 
-                // Create credential
-                const credential = await navigator.credentials.create({
-                    publicKey: createCredentialOptions
-                });
+                // Use the fingerprint sensor
+                const credential = await navigator.credentials.create(options);
 
-                // Extract fingerprint data
+                // Create fingerprint data with profile URL
                 const fingerprintData = {
                     name: 'arbin',
                     timestamp: new Date().toISOString(),
-                    credentialId: btoa(String.fromCharCode(...new Uint8Array(credential.rawId))),
-                    publicKey: btoa(String.fromCharCode(...new Uint8Array(credential.response.getPublicKey()))),
-                    authenticatorData: btoa(String.fromCharCode(...new Uint8Array(credential.response.getAuthenticatorData()))),
+                    profileUrl: profileUrl,
+                    fingerprintId: Array.from(new Uint8Array(credential.rawId))
+                        .map(b => b.toString(16).padStart(2, '0'))
+                        .join(''),
                     status: 'registered'
                 };
 
-                // Download the fingerprint data
+                // Save data to localStorage for fingerprint.html to use
+                localStorage.setItem('fingerprintData', JSON.stringify(fingerprintData));
+
+                // Download the data
                 const blob = new Blob([JSON.stringify(fingerprintData, null, 2)], 
                     { type: 'application/json' });
                 const url = window.URL.createObjectURL(blob);
@@ -244,6 +301,12 @@
         async function checkBiometricAvailability() {
             const status = document.querySelector('.status');
             const btn = document.querySelector('.register-btn');
+
+            if (!window.PublicKeyCredential) {
+                status.textContent = 'Fingerprint authentication not supported on this device';
+                btn.disabled = true;
+                return;
+            }
 
             try {
                 const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
