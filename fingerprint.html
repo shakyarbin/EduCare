@@ -145,7 +145,7 @@
         </div>
         <div class="fingerprint-text">
             <h2>Fingerprint Authentication</h2>
-            <p>Place your finger on the sensor to access your profile</p>
+            <p>Place your finger on the scanner to access your profile</p>
         </div>
         <a href="HomePage.html" class="back-btn">
             <i class="fas fa-arrow-left"></i>
@@ -154,45 +154,18 @@
     </div>
 
     <script>
-        async function verifyFingerprint() {
-            try {
-                // Get stored fingerprint data
-                const storedData = localStorage.getItem('fingerprintData');
-                if (!storedData) {
-                    throw new Error('No fingerprint registered');
-                }
-
-                const fingerprintData = JSON.parse(storedData);
-
-                // Request fingerprint verification
-                const options = {
-                    publicKey: {
-                        challenge: new Uint8Array([1, 2, 3, 4]),
-                        rpId: window.location.hostname,
-                        allowCredentials: [{
-                            type: 'public-key',
-                            id: new Uint8Array(fingerprintData.fingerprintId.match(/.{2}/g)
-                                .map(byte => parseInt(byte, 16)))
-                        }],
-                        userVerification: 'required'
-                    }
-                };
-
-                await navigator.credentials.get(options);
-                
-                // If verification successful, redirect to profile
-                window.location.href = fingerprintData.profileUrl;
-
-            } catch (error) {
-                console.error('Authentication failed:', error);
-                document.querySelector('.status').textContent = 
-                    'Authentication failed. Please try again.';
-            }
-        }
-
-        // Start verification when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(verifyFingerprint, 1000);
+            const container = document.querySelector('.fingerprint-container');
+            
+            // Start scanning animation
+            setTimeout(() => {
+                container.classList.add('scanning');
+                
+                // Simulate successful scan after 3 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
+            }, 1000);
         });
     </script>
 </body>
