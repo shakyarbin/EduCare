@@ -146,65 +146,120 @@
         </div>
         <div class="register-text">
             <h2>Register Fingerprint</h2>
-            <p>Place your finger on the scanner multiple times</p>
+            <p>Use your device's fingerprint sensor to register</p>
         </div>
         <div class="progress-container">
             <div class="progress-bar"></div>
         </div>
         <div class="status">Ready to scan</div>
-        <button class="register-btn" onclick="startRegistration()">
+        <button class="register-btn" onclick="startBiometricRegistration()">
             <i class="fas fa-plus-circle"></i>
             Start Registration
         </button>
     </div>
 
     <script>
-        let scanCount = 0;
-        const maxScans = 3;
-        
-        function startRegistration() {
+        async function startBiometricRegistration() {
             const container = document.querySelector('.register-container');
-            const progressBar = document.querySelector('.progress-bar');
             const status = document.querySelector('.status');
             const btn = document.querySelector('.register-btn');
             
-            btn.disabled = true;
-            container.classList.add('recording');
-            status.textContent = 'Scanning fingerprint...';
-            
-            // Simulate multiple scans
-            const scanInterval = setInterval(() => {
-                scanCount++;
-                status.textContent = `Scan ${scanCount} of ${maxScans} complete`;
-                
-                if (scanCount >= maxScans) {
-                    clearInterval(scanInterval);
-                    container.classList.remove('recording');
-                    status.textContent = 'Registration complete!';
-                    status.classList.add('success');
-                    
-                    // Create fingerprint data
-                    const fingerprintData = {
-                        name: 'arbin',
-                        timestamp: new Date().toISOString(),
-                        scans: maxScans,
-                        status: 'registered'
-                    };
-                    
-                    // Convert to blob and create download
-                    const blob = new Blob([JSON.stringify(fingerprintData, null, 2)], 
-                        { type: 'application/json' });
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'fingerprint-data.json';
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                }
-            }, 2000);
+            try {
+                btn.disabled = true;
+                container.classList.add('recording');
+                status.textContent = 'Initializing fingerprint sensor...';
+
+                // Generate random challenge
+                const challenge = new Uint8Array(32);
+                crypto.getRandomValues(challenge);
+
+                // Create PublicKeyCredentialCreationOptions
+                const createCredentialOptions = {
+                    challenge: challenge,
+                    rp: {
+                        name: "EduCare",
+                        id: window.location.hostname
+                    },
+                    user: {
+                        id: Uint8Array.from("arbin", c => c.charCodeAt(0)),
+                        name: "arbin",
+                        displayName: "Arbin"
+                    },
+                    pubKeyCredParams: [{
+                        type: "public-key",
+                        alg: -7 // ES256
+                    }],
+                    authenticatorSelection: {
+                        authenticatorAttachment: "platform",
+                        requireResidentKey: false,
+                        userVerification: "required"
+                    },
+                    timeout: 60000,
+                    attestation: "direct"
+                };
+
+                status.textContent = 'Place your finger on the sensor';
+
+                // Create credential
+                const credential = await navigator.credentials.create({
+                    publicKey: createCredentialOptions
+                });
+
+                // Extract fingerprint data
+                const fingerprintData = {
+                    name: 'arbin',
+                    timestamp: new Date().toISOString(),
+                    credentialId: btoa(String.fromCharCode(...new Uint8Array(credential.rawId))),
+                    publicKey: btoa(String.fromCharCode(...new Uint8Array(credential.response.getPublicKey()))),
+                    authenticatorData: btoa(String.fromCharCode(...new Uint8Array(credential.response.getAuthenticatorData()))),
+                    status: 'registered'
+                };
+
+                // Download the fingerprint data
+                const blob = new Blob([JSON.stringify(fingerprintData, null, 2)], 
+                    { type: 'application/json' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'fingerprint-data.json';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+                status.textContent = 'Registration complete!';
+                status.classList.add('success');
+
+            } catch (error) {
+                console.error('Error:', error);
+                status.textContent = 'Registration failed: ' + error.message;
+                status.style.color = '#f44336';
+                btn.disabled = false;
+            } finally {
+                container.classList.remove('recording');
+            }
         }
+
+        // Check if biometric authentication is available
+        async function checkBiometricAvailability() {
+            const status = document.querySelector('.status');
+            const btn = document.querySelector('.register-btn');
+
+            try {
+                const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+                if (!available) {
+                    status.textContent = 'Fingerprint sensor not available on this device';
+                    btn.disabled = true;
+                }
+            } catch (error) {
+                console.error('Error checking biometric availability:', error);
+                status.textContent = 'Unable to check fingerprint sensor';
+                btn.disabled = true;
+            }
+        }
+
+        // Check availability when page loads
+        document.addEventListener('DOMContentLoaded', checkBiometricAvailability);
     </script>
 </body>
 </html> 
