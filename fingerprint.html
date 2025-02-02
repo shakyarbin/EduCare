@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCare - Fingerprint Authentication</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .fingerprint-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: 1rem;
+        }
+
+        .fingerprint-icon {
+            font-size: 5rem;
+            color: #2196F3;
+            margin: 2rem 0;
+            animation: pulse 2s infinite;
+        }
+
+        .scanning .fingerprint-icon {
+            animation: scan 2s infinite;
+            color: #4CAF50;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scan {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(0.95);
+                opacity: 0.8;
+                color: #4CAF50;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .scan-line {
+            width: 100%;
+            height: 2px;
+            background: #2196F3;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            opacity: 0;
+        }
+
+        .scanning .scan-line {
+            animation: scanLine 2s infinite;
+        }
+
+        @keyframes scanLine {
+            0% {
+                top: 20%;
+                opacity: 1;
+            }
+            100% {
+                top: 80%;
+                opacity: 0;
+            }
+        }
+
+        .fingerprint-text {
+            margin-top: 2rem;
+            color: #333;
+        }
+
+        .fingerprint-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .fingerprint-text p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="fingerprint-container">
+        <div class="fingerprint-icon">
+            <i class="fas fa-fingerprint"></i>
+            <div class="scan-line"></div>
+        </div>
+        <div class="fingerprint-text">
+            <h2>Fingerprint Authentication</h2>
+            <p>Place your finger on the scanner to access your profile</p>
+        </div>
+        <a href="HomePage.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.fingerprint-container');
+            
+            // Start scanning animation
+            setTimeout(() => {
+                container.classList.add('scanning');
+                
+                // Simulate successful scan after 3 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 
