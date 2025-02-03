@@ -25,35 +25,31 @@
         </div>
     </nav>
     <div class="container">
-
     </div>
 </body>
-
 <script>
     var individual = {
-        "id": "000001",
-        "fullname": "Arbin Shakya",
-        "address": "Jorpati, Kathmandu",
-        "gender": "Male",
-        "phone": "+977 9765971233",
+        "id": "000002",
+        "fullname": "Aagya Tuladhar",
+        "address": "Banasthali, Bagmati-5, Kathmandu",
+        "gender": "Female",
+        "phone": "+977 9808273410",
         "languages": "English, Nepali, Newari",
-        "dob": "31/10/2006",
-        "age": 18,
-        "ssn": "4422-12-4567",
-        "profilePicture": "https://media.discordapp.net/attachments/1287405810737090752/1335613808093167778/20230412_1135393.jpg?ex=67a0ceca&is=679f7d4a&hm=a15d46466e6084f14f099705664a2236cdca1087d849f77edc187c90ca378f5f&=&format=webp&width=320&height=630",
+        "dob": "11/01/2008",
+        "age": 17,
+        "profilePicture": "https://media.discordapp.net/attachments/1288323126467231840/1335626957152325702/IMG20241013133907.jpg?ex=67a0db09&is=679f8989&hm=60bfd31d49e7ce3eee3dcaf55522c12d0e966c93e54aa0f740fc78add53640ae&=&format=webp&width=840&height=630",
         "medicalInformation": {
             "bloodGroup": "A+",
-            "plasma": "A+",
-            "platelets": "A+",
-            "weightInKg": 54,
-            "heightInCm": 175,
+            "plasma": "A+",    
+            "weightInKg": 70,
+            "heightInCm": 179,
             "medicalConditions": [
-                "Type 2 Diabetes",
+                "Asthama",
                 "Hypertension"
             ],
             "allergies": [
-                "Penicillin",
-                "Peanuts"
+                "Strawberries",
+                "Cow milk"
             ],
             "medications": [
                 "Metformin (500mg)",
@@ -61,11 +57,11 @@
             ]
         },
         "insuranceInformation": {
-            "provider": "MetLife",
-            "policyNumber": "HCP987654358"
-        },
-
+            "provider": "Rastriya Jiban Beema Company Limited",
+            "policyNumber": "HCP452554321"
+        }
     }
+
     const container = document.querySelector(".container");
     container.innerHTML = ` <div class="info-card">
             <div class="profile-section">
@@ -117,15 +113,15 @@
             <div class="message-content">
                 <div class="message-item">
                     <i class="fas fa-allergies"></i>
-                    <p>I am allergic to penicillin and peanuts. Please check my medical information above.</p>
+                    <p>I am allergic to strawberries and cow milk. Please check my medical information above.</p>
                 </div>
                 <div class="message-item">
                     <i class="fas fa-pills"></i>
-                    <p>I take daily medication for Type 2 Diabetes and Hypertension.</p>
+                    <p>I take daily medication for PCOS and Hypertension.</p>
                 </div>
                 <div class="message-item">
                     <i class="fas fa-language"></i>
-                    <p>I speak English and Nepali.</p>
+                    <p>I speak English, Nepali and French.</p>
                 </div>
                 <div class="message-item">
                     <i class="fas fa-id-card-alt"></i>
@@ -135,8 +131,7 @@
         </div>
         <button class="emergency-btn" onclick="window.location.href='contact.html'">
             <i class="fas fa-ambulance"></i> Emergency Contact
-        </button> `;
-
+        </button>`;
 </script>
 
 </html>
