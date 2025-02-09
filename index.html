@@ -4,13 +4,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EduCare - Emergency Healthcare</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=VG9KqJlW1MNXr5QCU2JnFpOivi0C2eG7mLwslI67MbnAmlzM_ZnkCZh-7A0p-j0VGv9foj57mtatN3Vdo4wyXSeWqEbGk-ah3bvEezHMzLTW8ovygeI43LNOLSLxUHl5RhPeOuuK_fYU8hwnculeT62lb5pytCSIRtoVWD0LDTsBTbd6qApuezFMrwQ2sHaH8Htr1fHMY3cOVe48nZRyyiQkClZ3GwJOg_epSxP37cmkDIH4gf42zcWHMjmAIWNE3XFOSldERDudHgoP8RCrHw" charset="UTF-8"></script><script src="./index_files/jquery.min.js.download"></script>
-  <script src="./index_files/jquery.waypoints.min.js.download"></script>
-  <script src="./index_files/jquery.counterup.min.js.download"></script>
-  <link href="./index_files/css2" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+  <script src="./script.js" defer></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <style>
@@ -1243,10 +1241,6 @@
           <i class="fas fa-users"></i>
           <span>Profiles</span>
         </a>
-        <a href="#features" class="nav-link">
-          <i class="fas fa-star"></i>
-          <span>Features</span>
-        </a>
         <a href="emergency.html" class="nav-link">
           <i class="fas fa-ambulance"></i>
           <span>Emergency</span>
@@ -1261,16 +1255,14 @@
 
   <section class="hero parallax-section">
     <div class="hero-content">
-      <h1>Welcome to EduCare</h1>
-      <p>Your Emergency Healthcare Companion</p>
+      <h1>Emergency Healthcare Made Simple</h1>
+      <p>Access medical information instantly during emergencies</p>
       <div class="hero-buttons">
-        <a href="#features" class="hero-btn primary">
-          <i class="fas fa-info-circle"></i>
-          Learn More
+        <a href="#portals" class="hero-btn primary">
+          <i class="fas fa-door-open"></i> View Portal
         </a>
-        <a href="#portals" class="hero-btn secondary">
-          <i class="fas fa-user-plus"></i>
-          Access Portal
+        <a href="#features" class="hero-btn secondary">
+          <i class="fas fa-star"></i> Key Features
         </a>
       </div>
       <div class="hero-highlights">
@@ -1321,8 +1313,9 @@
                 <li><i class="fas fa-check-circle"></i> Medical Profile</li>
                 <li><i class="fas fa-check-circle"></i> Emergency Contacts</li>
                 <li><i class="fas fa-check-circle"></i> First Aid Guide</li>
+                <li><i class="fas fa-check-circle"></i> Emergency Services</li>
             </ul>
-            <a href="https://shakyarbin.github.io/EduCare/Arbin.html" class="portal-btn" target="_blank">Access Profile</a>
+            <a href="Arbin.html" class="portal-btn">Access Profile</a>
         </div>
 
         <div class="portal-card">
@@ -1334,7 +1327,8 @@
             <ul class="portal-features">
                 <li><i class="fas fa-check-circle"></i> Emergency Numbers</li>
                 <li><i class="fas fa-check-circle"></i> Nearby Hospitals</li>
-                <li><i class="fas fa-check-circle"></i> First Aid</li>
+                <li><i class="fas fa-check-circle"></i> First Aid Guide</li>
+                <li><i class="fas fa-check-circle"></i> Location Services</li>
             </ul>
             <a href="emergency.html" class="portal-btn">Access Services</a>
         </div>

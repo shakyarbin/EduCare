@@ -836,4 +836,17 @@ function updateGuidanceButton() {
         const hasActiveItems = document.querySelectorAll('.first-aid-item.active').length > 0;
         guidanceBtn.disabled = !hasActiveItems;
     }
-} 
+}
+
+// Add smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const section = document.querySelector(this.getAttribute('href'));
+        if (section) {
+            section.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+}); 
