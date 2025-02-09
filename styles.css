@@ -35,8 +35,8 @@ body {
 }
 
 .logo a {
-    text-decoration: none;
-    color: #2196F3;
+    text-decoration: none !important;
+    color: #2196F3 !important;
 }
 
 .logo i {
@@ -48,9 +48,15 @@ body {
     text-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
 }
 
-.logo:hover i,
-.logo:hover a {
+.logo:hover i {
     color: #1976D2;
+}
+
+.logo a:visited, 
+.logo a:active, 
+.logo a:hover {
+    color: #2196F3 !important;
+    text-decoration: none !important;
 }
 
 .nav-links {
