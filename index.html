@@ -11,6 +11,8 @@
   <script src="./index_files/jquery.waypoints.min.js.download"></script>
   <script src="./index_files/jquery.counterup.min.js.download"></script>
   <link href="./index_files/css2" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <style>
     :root {
       --primary-color: #2196f3;
@@ -600,13 +602,16 @@
     }
 
     .feature-card {
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.6s ease;
       background: white;
       padding: 2rem;
       border-radius: 15px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
     }
 
     .feature-card::before {
@@ -618,11 +623,12 @@
       height: 4px;
       background: var(--primary-color);
       transform: scaleX(0);
-      transition: transform 0.3s;
+      transition: transform 0.3s ease;
     }
 
     .feature-card:hover {
       transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(33, 150, 243, 0.2);
     }
 
     .feature-card:hover::before {
@@ -633,6 +639,11 @@
       font-size: 2.5rem;
       color: var(--primary-color);
       margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1);
     }
 
     .feature-card h3 {
@@ -653,11 +664,14 @@
     }
 
     .feature-list li {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-      color: #555;
+      opacity: 0.9;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-list li {
+      opacity: 1;
+      transform: translateX(0);
     }
 
     .feature-list i {
@@ -984,10 +998,6 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
-    .feature-card.disabled:hover::before {
-      transform: scaleX(0);
-    }
-
     .portal-card .portal-link i {
       margin-right: 0.5rem;
     }
@@ -1185,93 +1195,6 @@
         box-shadow: 0 4px 15px rgba(255, 51, 51, 0.4),
                     0 0 20px rgba(255, 51, 51, 0.4) !important;
     }
-
-    /* Scanner Modal Styles */
-    .scanner-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 1000;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .scanner-content {
-        background: white;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 500px;
-        overflow: hidden;
-    }
-
-    .scanner-header {
-        padding: 1rem;
-        background: #2196F3;
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .close-scanner {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
-
-    .scanner-body {
-        position: relative;
-        aspect-ratio: 4/3;
-        background: #000;
-    }
-
-    #video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .scanning-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .scan-area {
-        width: 80%;
-        height: 80%;
-        border: 2px solid #2196F3;
-        border-radius: 8px;
-        position: relative;
-    }
-
-    .scanning-animation {
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background: #2196F3;
-        animation: scan 2s linear infinite;
-    }
-
-    @keyframes scan {
-        0% {
-            transform: translateY(0);
-        }
-        100% {
-            transform: translateY(100%);
-        }
-    }
   </style>
 </head>
 
@@ -1382,83 +1305,63 @@
             </ul>
             <a href="emergency.html" class="portal-btn">Access Services</a>
         </div>
-
-        <div class="portal-card">
-            <div class="portal-icon">
-                <i class="fas fa-camera"></i>
-            </div>
-            <h3>Face Recognition Portal</h3>
-            <p>Quickly access profiles by scanning your face.</p>
-            <ul class="portal-features">
-                <li><i class="fas fa-check-circle"></i> Instant Recognition</li>
-                <li><i class="fas fa-check-circle"></i> Secure Access</li>
-                <li><i class="fas fa-check-circle"></i> Quick Profile View</li>
-            </ul>
-            <button id="startScan" class="portal-btn">
-                <i class="fas fa-camera"></i> Start Face Scan
-            </button>
-        </div>
     </div>
   </section>
 
-  <div id="scannerModal" class="scanner-modal">
-    <div class="scanner-content">
-        <div class="scanner-header">
-            <h3><i class="fas fa-camera"></i> Face Scanner</h3>
-            <button class="close-scanner">&times;</button>
-        </div>
-        <div class="scanner-body">
-            <video id="video" autoplay playsinline></video>
-            <canvas id="canvas" style="display: none;"></canvas>
-            <div class="scanning-overlay">
-                <div class="scan-area"></div>
-                <div class="scanning-animation"></div>
-            </div>
-        </div>
-    </div>
-  </div>
-
   <section class="features-section" id="features">
-    <h2 class="section-title">Our Features</h2>
+    <h2 class="section-title">Key Features</h2>
     <div class="features-container">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-database"></i>
+        <div class="feature-card" data-aos="fade-up">
+            <div class="feature-icon">
+                <i class="fas fa-qrcode"></i>
+            </div>
+            <h3>Quick Access QR System</h3>
+            <p>Instant access to medical profiles and emergency information through QR code scanning.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i> Scan & View Medical Profile</li>
+                <li><i class="fas fa-check"></i> Emergency Contact Access</li>
+                <li><i class="fas fa-check"></i> Offline Information Storage</li>
+            </ul>
         </div>
-        <h3>Emergency Contact Database</h3>
-        <p>Instant access to blood donors across colleges and communities during emergencies. Quick response system for critical situations.</p>
-        <ul class="feature-list">
-          <li><i class="fas fa-check"></i> Emergency Contact Using QR Code</li>
-          <li><i class="fas fa-check"></i> Emergency notifications</li>
-          <li><i class="fas fa-check"></i> Direct contact system</li>
-        </ul>
-      </div>
 
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-chart-line"></i>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-icon">
+                <i class="fas fa-kit-medical"></i>
+            </div>
+            <h3>First Aid Guide</h3>
+            <p>Interactive first aid guidance with step-by-step emergency procedures and medical assistance.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i> Emergency Procedures</li>
+                <li><i class="fas fa-check"></i> Interactive Guidance</li>
+                <li><i class="fas fa-check"></i> Offline Access</li>
+            </ul>
         </div>
-        <h3>Real-Time Availability</h3>
-        <p>Live tracking of blood components availability in nearby facilities and connected institutions.</p>
-        <ul class="feature-list">
-          <li><i class="fas fa-check"></i> Blood type tracking</li>
-          <li><i class="fas fa-check"></i> Component availability</li>
-          <li><i class="fas fa-check"></i> Location-based search</li>
-        </ul>
-      </div>
 
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-user-friends"></i>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-icon">
+                <i class="fas fa-hospital-user"></i>
+            </div>
+            <h3>Medical Profile Management</h3>
+            <p>Comprehensive medical profile system for students and staff with emergency information.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i> Medical History</li>
+                <li><i class="fas fa-check"></i> Emergency Contacts</li>
+                <li><i class="fas fa-check"></i> Insurance Details</li>
+            </ul>
         </div>
-        <h3>Donor Registry</h3>
-        <p>Comprehensive system for managing volunteer donors with automated notification system.</p>
-        <ul class="feature-list">
-          <li><i class="fas fa-check"></i> Donor profiles</li>
-          <li><i class="fas fa-check"></i> Medical history tracking</li>
-          <li><i class="fas fa-check"></i> Donation scheduling</li>
-        </ul>
-      </div>
+
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-icon">
+                <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <h3>Emergency Services Locator</h3>
+            <p>Find and contact nearby hospitals, clinics, and emergency services instantly.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i> Nearby Hospitals Map</li>
+                <li><i class="fas fa-check"></i> Quick Emergency Calls</li>
+                <li><i class="fas fa-check"></i> Route Navigation</li>
+            </ul>
+        </div>
     </div>
   </section>
 
@@ -1589,13 +1492,27 @@
         behavior: 'smooth'
       });
     });
-  </script>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
-  <script defer src="face-recognition.js"></script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        offset: 100,
+        once: true
+    });
+
+    // Add scroll reveal effect for features
+    document.addEventListener('scroll', function() {
+        const cards = document.querySelectorAll('.feature-card');
+        cards.forEach(card => {
+            const cardTop = card.getBoundingClientRect().top;
+            const screenHeight = window.innerHeight;
+            
+            if (cardTop < screenHeight * 0.85) {
+                card.style.transform = 'translateY(0)';
+                card.style.opacity = '1';
+            }
+        });
+    });
+  </script>
 
 </body></html>
